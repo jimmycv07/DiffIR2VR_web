@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>NaRCan</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:image" content="https://github.com/koi953215/NaRCan_page/img/overview_combined.jpg">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1296">
+    <meta property="og:image:height" content="840">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://koi953215.github.io/NaRCan_page/"/>
+    <meta property="og:title" content="NaRCan: Natural Refined Canonical Image with Integration of Diffusion Prior for Video Editing" />
+    <meta property="og:description" content="Video editing approaches, especially through image-based diffusion models, have seen significant advancements but struggle with temporal consistency in video-to-video tasks. Existing models often fail to maintain sequence temporal consistency, disrupting frame transitions. To tackle this issue, this paper introduces NaRCan, a video editing framework that integrates a hybrid deformation field network with diffusion priors. Unlike conventional methods that generate a canonical image as a singular representation of video content, our approach ensures the production of high-quality, natural canonical images, which are crucial for downstream tasks like handwriting, style transfer, and dynamic segmentation. By leveraging a hybrid deformation field module and a sophisticated-designed scheduling method, NaRCan offers improved adaptability and superior editing capabilities across various video editing applications. Extensive experimental results show that our method outperforms existing approaches in producing coherent and high-quality video sequences. This work advances the state of video editing approaches and provides a robust solution for maintaining sequence temporal consistency using diffusion-based methods." />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NaRCan: Natural Refined Canonical Image with Integration of Diffusion Prior for Video Editing" />
+    <meta name="twitter:description" content="Video editing approaches, especially through image-based diffusion models, have seen significant advancements but struggle with temporal consistency in video-to-video tasks. Existing models often fail to maintain sequence temporal consistency, disrupting frame transitions. To tackle this issue, this paper introduces NaRCan, a video editing framework that integrates a hybrid deformation field network with diffusion priors. Unlike conventional methods that generate a canonical image as a singular representation of video content, our approach ensures the production of high-quality, natural canonical images, which are crucial for downstream tasks like handwriting, style transfer, and dynamic segmentation. By leveraging a hybrid deformation field module and a sophisticated-designed scheduling method, NaRCan offers improved adaptability and superior editing capabilities across various video editing applications. Extensive experimental results show that our method outperforms existing approaches in producing coherent and high-quality video sequences. This work advances the state of video editing approaches and provides a robust solution for maintaining sequence temporal consistency using diffusion-based methods." />
+    <meta name="twitter:image" content="https://github.com/koi953215/NaRCan_page/img/overview_combined.jpg" />
+
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💊</text></svg>">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/fontawesome.all.min.css">
+	<link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZERS5BVPS"></script>
+  <script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-8ZERS5BVPS');
+  </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script defer src="js/fontawesome.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/video_comparison.js"></script>
+    <script src="js/synced_video_selector.js"></script>
+</head>
+
+<body style="padding: 1%; width: 100%">
+    <div class="container" style="max-width: 1500px; margin: auto;" id="main">
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <b>NaRCan</b>:<br>Natural Refined Canonical Image with Integration of Diffusion Prior for Video Editing</br> 
+                <!-- <small>
+                ICCV 2023 (Oral Presentation, Best Paper Finalist)
+                </small> -->
+            </h2>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="https://koi953215.github.io/">
+                            Ting-Hsuan Chen
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            Jiewen Chan
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            Shih Han Yen
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            Hau-Shiang Shiu
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            Changhan Yeh
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://yulunalexliu.github.io/">
+                            Yu-Lun Liu
+                        </a>
+                    </li>
+                    </br>National Yang Ming Chiao Tung University
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                    <ul class="nav nav-pills nav-justified">
+                        <li>
+                            <a href="https://arxiv.org/abs/2304.06706">
+                            <image src="img/narcan_paper_image.jpg" height="60px">
+                                <h4><strong>Paper</strong></h4>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/watch?v=xrrhynRzC8k">
+                            <image src="img/youtube_icon.png" height="60px">
+                                <h4><strong>Video</strong></h4>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/jonbarron/camp_zipnerf">
+                            <image src="img/github.png" height="60px">
+                                <h4><strong>Code [coming soon]</strong></h4>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <video id="v0" width="100%" autoplay loop muted controls>
+                  <source src="img/teaser.mp4" type="video/mp4" />
+                </video>
+						</div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Abstract
+                </h3>
+                <p class="text-justify">
+                    Video editing approaches, especially through image-based diffusion models, have seen significant advancements but struggle with temporal consistency in video-to-video tasks. Existing models often fail to maintain sequence temporal consistency, disrupting frame transitions. To tackle this issue, this paper introduces NaRCan, a video editing framework that integrates a hybrid deformation field network with diffusion priors. Unlike conventional methods that generate a canonical image as a singular representation of video content, our approach ensures the production of high-quality, natural canonical images, which are crucial for downstream tasks like handwriting, style transfer, and dynamic segmentation. By leveraging a hybrid deformation field module and a sophisticated-designed scheduling method, NaRCan offers improved adaptability and superior editing capabilities across various video editing applications. Extensive experimental results show that our method outperforms existing approaches in producing coherent and high-quality video sequences. This work advances the state of video editing approaches and provides a robust solution for maintaining sequence temporal consistency using diffusion-based methods.
+                </p>
+            </div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+				  <b><font color="#4472c4">NaR</font><font color="#ff0000">Can</font></b> = <font color="#4472c4"><b>Na</b>tural <b>R</b>efined</font> <font color="#ff0000"><b>Can</b>onical Image</font> with <font color="#ed7d31"><b>Diffusion Prior</b></font>
+                </h3>
+                <image src="img/teaser.jpg" width=100% style="display: block; margin: auto;"></image>
+                <br>
+                <p class="text-justify">
+                    <b>Video representation with diffusion prior.</b> Given an RGB video, we can represent the video using a canonical image. However, the canonical image and reconstruction training process focuses only on reconstruction quality and could produce an unnatural canonical image. This could cause problems with downstream tasks such as prompt-based video editing. In the bottom example, if the hand is distorted in the canonical image, the image editor, such as ControlNet, may not recognize it and could introduce an irrelevant object instead. In this paper, we propose introducing the <i>diffusion prior</i> from a LoRA fine-tuned diffusion model to the training pipeline and constraining the canonical image to be natural. Our method facilitates several downstream tasks, such as (a) video editing, (b) dynamic segmentation, and (c) video style transfer.
+                </p>
+            </div>
+        </div><br>
+
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Our proposed framework
+                </h3>
+                <image src="img/overview_combined.jpg" width=100% style="display: block; margin: auto;"></image>
+                <br>
+                <p class="text-justify">
+                    Given an input video sequence, our method aims to represent the video with a <i>natural</i> canonical image, which is a crucial representation for versatile downstream applications. (a) First, we fine-tune the LoRA weights of a pre-trained latent diffusion model on the input frames. (b) Second, we represent the video using a canonical MLP and a deformation field, which consists of homography estimation and residual deformation MLP for non-rigid residual deformations. By relying entirely on the reconstruction loss, the canonical MLP often fails to represent a natural canonical image, causing problems for downstream applications. <i>E.g.</i>, image-to-image translation methods such as ControlNet may not be able to recognize that there is a train in the canonical image. (c) Therefore, we leverage the fine-tuned latent diffusion model to regularize and correct the unnatural canonical image into a natural one. Specifically, we sophistically design a noise scheduling corresponding to the frame reconstruction process. (d) The natural and artifacts-free canonical image can then be facilitated to various downstream tasks such as video style transfer, dynamic segmentation, and editing, such as adding handwritten characters.
+                </p>
+            </div>
+        </div><br>
+
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Noise and diffusion prior update scheduling
+                </h3>
+                <image src="img/scheduling.jpg" width=100% style="display: block; margin: auto;"></image>
+                <br>
+                <p class="text-justify">
+                    Initially, our model fits object outlines before the fields converge and without the diffusion prior, resulting in unnatural elements in the canonical image due to complex non-rigid objects. Upon introducing the diffusion prior with increased noise and update frequency, the model learns to generate natural, high-quality images, leading to convergence. Thus, the strength of noise and the update frequency will also decrease. Moreover, it's worth mentioning that update scheduling cuts training time from 4.8 hours to 20 minutes.
+                </p>
+            </div>
+        </div><br>
+
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    User study
+                </h3>
+                <image src="img/user_study.jpg" width=100% style="display: block; margin: auto;"></image>
+                <p class="text-justify">
+                    Our method achieves the highest user preference ratios across all three aspects, compared with MeDM, CoDeF, Hashing-nvd.
+                </p>
+            </div>
+        </div><br>
+
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+				  ReconFusion outperforms other few-view NeRF methods
+                </h3><br>
+
+                <div class="text-center ">
+                    <ul class="nav nav-pills center-pills">
+                        <li class="method-pill active" data-value="zipnerf"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>Zip-NeRF</a></li>
+                        <li class="method-pill" data-value="diffusionerf"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>DiffusioNeRF</a></li>
+                    </ul>
+                    <ul class="nav nav-pills center-pills">
+                        <li class="method-pill" data-value="freenerf"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>FreeNeRF</a></li>
+                        <li class="method-pill" data-value="simplenerf"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>SimpleNeRF</a></li>
+                        <li class="method-pill" data-value="zeronvs"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>ZeroNVS</a></li>
+                    </ul>
+                </div>
+
+                <script>
+                    activeMethodPill = document.querySelector('.method-pill.active-pill');
+                    activeScenePill = document.querySelector('.scene-pill.active-pill');
+                    activeModePill = document.querySelector('.mode-pill.active-pill');
+                </script>
+                
+                <div class="text-center">
+                    <div class="video-container">
+                        <video class="video" style="height: 280px; max-width: 100%;" m id="compVideo0" loop playsinline autoplay muted>
+                            <source src="videos/comparison/mipnerf360_bonsai_zipnerf_vs_ours_rgb.mp4" />
+                        </video>
+                        <video class="video" style="height: 280px; max-width: 100%;" id="compVideo1" loop playsinline autoplay muted hidden>
+                            <source src="videos/comparison/mipnerf360_bonsai_zipnerf_vs_ours_depth.mp4" />
+                        </video>
+                    </div>
+                    <div class="text-center" style="color: black;" id="mode-pills">
+                        <div class="btn-group btn-group-sm">
+                            <span class="btn btn-primary mode-pill active" data-value="rgb"
+                                onclick="selectCompVideo(activeMethodPill, activeScenePill, null, this)">
+                                RGB
+                            </span>
+                            <span class="btn btn-primary mode-pill" data-value="depth"
+                                onclick="selectCompVideo(activeMethodPill, activeScenePill, null, this)">
+                                Depth
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <br>
+                    <p class="text-justify" style="text-align: center;">
+                        Baseline method (left) vs ReconFusion (right). Scene trained on <span id="compVideoValue">9</span> views. Try selecting different methods and scenes!
+                    </p>
+                    <script>
+                        video0 = document.getElementById("compVideo0");
+                        video1 = document.getElementById("compVideo1");
+                        video0.addEventListener('loadedmetadata', function() {
+                            if (activeVidID == 0 && select){
+                                video0.play();
+                                // print video size
+                                console.log(video0.videoWidth, video0.videoHeight);
+                                video0.hidden = false;
+                                video1.hidden = true;
+                            }
+                        });
+                        video1.addEventListener('loadedmetadata', function() {
+                            if (activeVidID == 1 && select){
+                                video1.play();
+                                // print video size
+                                console.log(video1.videoWidth, video1.videoHeight);
+                                video0.hidden = true;
+                                video1.hidden = false;
+                            }
+                        });
+                    </script>
+
+                    <div class="pill-row scene-pills" id="scene-pills">
+                        <span class="pill scene-pill" data-value="dtu_scan31" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/dtu_scan31_thumbnail.jpg" alt="DTU/scan31" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="dtu_scan45" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/dtu_scan45_thumbnail.jpg" alt="DTU/scan45" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="llff_fern" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/llff_fern_thumbnail.jpg" alt="LLFF/fern" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="llff_horns" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/llff_horns_thumbnail.jpg" alt="LLFF/horns" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="re10k_00e8df74b6805da7" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/re10k_00e8df74b6805da7_thumbnail.jpg" alt="Re10K/sofa" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="re10k_000c3ab189999a83" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/re10k_000c3ab189999a83_thumbnail.jpg" alt="Re10K/living room" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="co3d_bench_185_19987_38634" onclick="selectCompVideo(activeMethodPill, this, 6)">
+                            <img class="thumbnail-img" src="thumbnails/co3d_bench_185_19987_38634_thumbnail.jpg" alt="CO3D/bench" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="co3d_plant_188_20319_36755" onclick="selectCompVideo(activeMethodPill, this, 6)">
+                            <img class="thumbnail-img" src="thumbnails/co3d_plant_188_20319_36755_thumbnail.jpg" alt="CO3D/plant" width="64">
+                        </span>
+                        <span class="pill scene-pill active" data-value="mipnerf360_bonsai" onclick="selectCompVideo(activeMethodPill, this, 9)">
+                            <img class="thumbnail-img" src="thumbnails/mipnerf360_bonsai_thumbnail.jpg" alt="mip-NeRF 360/bonsai" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="mipnerf360_kitchen" onclick="selectCompVideo(activeMethodPill, this, 9)">
+                            <img class="thumbnail-img" src="thumbnails/mipnerf360_kitchen_thumbnail.jpg" alt="mip-NeRF 360/kitchen" width="64">
+                        </span>
+                    </div>
+
+                    <script>
+                        activeMethodPill = document.querySelector('.method-pill.active-pill');
+                        activeScenePill = document.querySelector('.scene-pill.active-pill');
+                        activeModePill = document.querySelector('.mode-pill.active-pill');
+                    </script>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+				  ReconFusion improves both few-view and many-view reconstruction
+                </h3><br>
+                <!-- <p class="text-justify" style="color:red">
+                    Hover over the plot to show rendered video under different number of views.
+                </p> -->
+                
+                <!-- top down layout -->
+                <canvas id="sparsityChart" style="max-height: 300px; max-width: 500px; margin: auto;"></canvas>
+                <script src="js/sparsity_chart.js"></script>
+                <br>
+                <p class="text-center">
+                    Our diffusion prior improves performance over baseline Zip-NeRF in both the few-view and many-view sampling regimes.
+                </p>
+    
+                <div class="text-center">
+                    <div class="video-compare-container" id="materialsDiv">
+                        <video class="video" id="sparsity" loop playsinline autoPlay muted src="videos/sparsity/stacked_vid.mp4" onplay="resizeAndPlay(this)"></video>
+                        <canvas height=0 class="videoMerge" id="sparsityMerge"></canvas>
+                    </div>
+                    <!-- <canvas height=0 class="videoWrapper" id="sparsityVideoWrapper"></canvas> -->
+			<em>Move the slider to adjust the number of views. The left column shows the nearest input view.</em>
+                    <div class="slider-container" style="padding-left: 12%; padding-right: 11%;">
+                        <input type="range" class="styled-slider" id="sparsitySlider" min="0" max="6" step="1" value="0" list="slider-labels">
+                        <datalist id="slider-labels">
+                            <option value="0">3</option>
+                            <option value="1">6</option>
+                            <option value="2">9</option>
+                            <option value="3">18</option>
+                            <option value="4">27</option>
+                            <option value="5">54</option>
+                            <option value="6">81</option>
+                        </datalist>
+                    </div>
+                    <table style="text-align: left; padding-left: 0px; padding-right: 10%; width: 100%;">
+                        <tr>
+                            <th width="10%"></th>
+                            <td width="10%">3</td>
+                            <td width="10%">6</td>
+                            <td width="10%">9</td>
+                            <td width="10%">18</td>
+                            <td width="10%">27</td>
+                            <td width="10%">54</td>
+                            <td width="10%">81</td>
+                        </tr>
+                    </table><br>
+                    <!-- <div class="text-center">
+                        Rendered video under <span id="sparsityValue" style="color: red;">3</span> views
+                    </div> -->
+                </div>
+                
+                <!-- left right layout -->
+                <!-- <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                      <td style="text-align: center;" >
+                        <canvas id="sparsityChart" style="max-height: 250px; max-width: 200px; margin: auto;"></canvas>
+                        <script src="js/sparsity_chart.js"></script>
+                      </td>
+                      <td style="text-align: center;">
+                        <video class="video" width=100% id="sparsityVideo" loop playsinline autoplay muted onplay="playOnCanvas(this, 180)">
+                            <source src="videos/sparsity/kitchenlego_3.mp4" type="video/mp4" />
+                        </video>
+                        <canvas height=0 class="videoWrapper" id="sparsityVideoWrapper"></canvas>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;"></td>
+                      <td style="text-align: center;">Rendered video under <span id="sparsityValue" style="color: red;">3</span> views</td>
+                    </tr>
+                </table> -->
+<br>
+            </div>
+        </div><br><br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h3>
+                    ReconFusion distills a consistent 3D model from inconsistent samples
+                </h3><br>
+                
+                <table style="margin-left: auto; margin-right: auto; width: 90%;">
+                    <tr>
+                      <th style="width: 4%;"></th>
+                      <th style="text-align: center;width: 32%;">LLFF (3 views)</th>
+                      <th style="text-align: center;width: 32%;">CO3D (6 views)</th>
+					  <th style="text-align: center;width: 32%;">mip-NeRF 360 (9 views)</th>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center; writing-mode: vertical-lr; transform: rotate(180deg); width:4%">3D Reconstruction</td>
+                      <td rowspan="2" colspan="3" style="width: 96%">
+                        <video class="video" width=100% loop playsinline autoplay muted controls>
+                            <source src="videos/ablation/recon_vs_samples.mp4" />
+                        </video>
+                      </td>
+                      <!-- <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/z123_nerf.mp4" />
+                        </video>
+                      </td>
+                      <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/scratch_nerf.mp4" />
+                        </video>
+                      </td>
+                      <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/ours_nerf.mp4" />
+                        </video>
+                      </td> -->
+                    </tr>
+                    <tr>
+					  <td style="text-align: center; writing-mode: vertical-lr; transform: rotate(180deg); width:4%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Samples&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td></td>
+                      <!-- <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/z123_samples.mp4" />
+                        </video>
+                      </td>
+                      <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/scratch_samples.mp4" />
+                        </video>
+                      </td>
+                      <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/ours_samples.mp4" />
+                        </video>
+                      </td> -->
+                    </tr>
+                </table>
+                <br>
+<!-- 
+                <p class="text-justify" style="width: 85%; margin: auto;"> -->
+                <p class="text-justify" style="width:85%; margin:auto">
+                    ReconFusion recovers consistent 3D reconstructions (top) from a diffusion model that produces image samples independently for each viewpoint (bottom). These samples are not multiview consistent, but can produce high-quality 3D reconstructions when used as a prior in optimization.
+                </p>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Video
+                </h3>
+                <div class="text-center">
+                    <div style="position:relative;padding-top:56.25%;">
+                        <iframe src="https://youtube.com/embed/xrrhynRzC8k" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+<br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Multisampling
+                </h3>
+				<table style="width: 100%; border-collapse: collapse;">
+				  <tr>
+				    <td style="text-align: center;">
+		                <video id="v0" width="100%" autoplay loop muted>
+		                  <source src="img/hexify_train.mp4" type="video/mp4" />
+		                </video>
+					</td>
+				    <td style="text-align: center;">
+		                <video id="v0" width="100%" autoplay loop muted>
+		                  <source src="img/hexify_test.mp4" type="video/mp4" />
+		                </video>
+					</td>
+				  </tr>
+				  <tr>
+				    <td style="text-align: center;">When Training</td>
+				    <td style="text-align: center;">When Rendering</td>
+				  </tr>
+				</table>
+                <p class="text-justify">
+                    We use multisampling to approximate the average NGP feature over a conical frustum, by constructing a 6-sample pattern that exactly matches the frustum's first and second moments. When training, we randomly rotate and flip (along the ray axis) each pattern, and when rendering we deterministically flip and rotate each adjacent pattern by 30 degrees.
+                </p>
+            </div>
+        </div>
+<br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    XY aliasing
+                </h3>
+                <video class="video" width=100% id="xyalias" loop playsinline autoplay muted src="img/xy_alias_swipe_crf27.mp4" onplay="resizeAndPlay(this)"></video>
+                <canvas height=0 class="videoMerge" id="xyaliasMerge"></canvas>
+                <p class="text-justify">
+                    A naive baseline (left) combining mip-NeRF 360 and Instant NGP results in aliasing as the camera moves laterally. Our full method (right) produces prefiltered renderings that do not flicker or shimmer.
+                </p>
+            </div>
+        </div>
+           
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Z aliasing
+                </h3>
+                <video id="v0" width="100%" autoplay loop muted>
+                  <source src="img/z_alias_pdf_labeled.m4v" type="video/mp4" />
+                </video>
+                <p class="text-justify">
+                    The proposal network used for resampling points along rays in mip-NeRF 360 results in an artifact we refer to as <em>z-aliasing</em>, where foreground content alternately appears and disappears as the camera moves toward or away from scene content. Z-aliasing occurs when the initial set of samples from the proposal network is not dense enough and misses thin structures, such as the chair above. Missed content can not be recovered by later rounds of sampling, since no future samples will be placed at that location along the ray. Our improvements to proposal network supervision result in a prefiltered proposal output that preserves the foreground object for all frames in this sequence. The plots above depict samples along a ray for three rounds of resampling (blue, orange, and green lines), with the y axis showing rendering weight (how much each interval contributes to the final rendered color), as a normalized probability density.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Citation
+                </h3>
+                <div class="form-group col-md-10 col-md-offset-1">
+                    <textarea id="bibtex" class="form-control" readonly>
+@article{chen2024narcan,
+    title={NaRCan: Natural Refined Canonical Image with 
+           Integration of Diffusion Prior for Video Editing},
+    author={Ting-Hsuan Chen and Jiewen Chan and Shih Han Yen and 
+            Hau-Shiang Shiu and Changhan Yeh and Yu-Lun Liu},
+    journal={arXiv},
+    year={2024}
+}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Acknowledgements
+                </h3>
+                <p class="text-justify">
+                This research was funded by the National Science and Technology Council, Taiwan, under Grants NSTC 112-2222-E-A49-004-MY2. The authors are grateful to Google, NVIDIA, and MediaTek Inc. for generous donations. Yu-Lun Liu acknowledges the Yushan Young Fellow Program by the MOE in Taiwan.
+                    <br><br>
+                The website template was borrowed from <a href="http://mgharbi.com/">Michaël Gharbi</a> and <a href="https://dorverbin.github.io/refnerf">Ref-NeRF</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

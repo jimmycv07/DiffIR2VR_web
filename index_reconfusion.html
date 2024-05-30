@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>ReconFusion</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:image" content="https://reconfusion.github.io/img/overview_combined.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1711">
+    <meta property="og:image:height" content="576">
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://reconfusion.github.io/"/>
+    <meta property="og:title" content="ReconFusion: 3D Reconstruction with Diffusion Priors" />
+    <meta property="og:description" content="3D reconstruction methods such as Neural Radiance Fields (NeRFs) excel at rendering photorealistic novel views of complex scenes. However, recovering a high-quality NeRF typically requires tens to hundreds of input images, resulting in a time-consuming capture process. We present ReconFusion to reconstruct real-world scenes using only a few photos. Our approach leverages a diffusion prior for novel view synthesis, trained on synthetic and multiview datasets, which regularizes a NeRF-based 3D reconstruction pipeline at novel camera poses beyond those captured by the set of input images. Our method synthesizes realistic geometry and texture in underconstrained regions while preserving the appearance of observed regions. We perform an extensive evaluation across various real-world datasets, including forward-facing and 360-degree scenes, demonstrating significant performance improvements over previous few-view NeRF reconstruction approaches."/>
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ReconFusion: 3D Reconstruction with Diffusion Priors" />
+    <meta name="twitter:description" content="3D reconstruction methods such as Neural Radiance Fields (NeRFs) excel at rendering photorealistic novel views of complex scenes. However, recovering a high-quality NeRF typically requires tens to hundreds of input images, resulting in a time-consuming capture process. We present ReconFusion to reconstruct real-world scenes using only a few photos. Our approach leverages a diffusion prior for novel view synthesis, trained on synthetic and multiview datasets, which regularizes a NeRF-based 3D reconstruction pipeline at novel camera poses beyond those captured by the set of input images. Our method synthesizes realistic geometry and texture in underconstrained regions while preserving the appearance of observed regions. We perform an extensive evaluation across various real-world datasets, including forward-facing and 360-degree scenes, demonstrating significant performance improvements over previous few-view NeRF reconstruction approaches."/>
+    <meta name="twitter:image" content="https://reconfusion.github.io/img/overview_combined.png" />
+
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤔</text></svg>">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.css">
+    <link rel="stylesheet" href="css/app.css">
+	<link rel="stylesheet" href="css/fontawesome.all.min.css">
+	<link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+
+	<!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZERS5BVPS"></script>
+  <script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'G-8ZERS5BVPS');
+  </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.8.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.3/clipboard.min.js"></script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+	<script defer src="js/fontawesome.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/synced_video_selector.js"></script>
+
+</head>
+
+<body style="padding: 1%; width: 100%">
+    <div class="container-lg text-center" style="max-width: 1500px; margin: auto;" id="main">
+    <!-- <div class="container" id="main"> -->
+        <div class="row">
+            <h2 class="col-md-12 text-center">
+                <b>ReconFusion</b>: 3D Reconstruction with Diffusion Priors</br> 
+            </h2>
+        </div>
+        <div class="row text-center">
+<div class="col-md-3">
+    </div>
+            <div class="col-md-6 text-center">
+                <ul class="list-inline">
+                    <li>
+                        <a href="https://www.cs.columbia.edu/~rundi/">
+                            Rundi Wu
+                        </a><sup>1</sup>*
+                    </li>
+                    <li>
+                        <a href="http://bmild.github.io/">
+                            Ben Mildenhall
+                        </a><sup>2</sup>*
+                    </li>
+                    <li>
+                        <a href="https://henzler.github.io/">
+                            Philipp Henzler
+                        </a><sup>2</sup>
+                    </li>
+                    <li>
+                        <a href="https://keunhong.com/">
+                            Keunhong Park
+                        </a><sup>2</sup>
+                    </li>
+                    <wbr>
+                    <li>
+                        <a href="https://ruiqigao.github.io/">
+                            Ruiqi Gao
+                        </a><sup>3</sup>
+                    </li>
+                    <li>
+                        <a href="https://scholar.google.com/citations?user=_pKKv2QAAAAJ&hl=en/">
+                            Daniel Watson
+                        </a><sup>3</sup>
+                    </li>
+                    <li>
+                        <a href="https://pratulsrinivasan.github.io/">
+                            Pratul P. Srinivasan
+                        </a><sup>2</sup>
+                    </li>
+                    <li>
+                        <a href="https://dorverbin.github.io/">
+                            Dor Verbin
+                        </a><sup>2</sup>
+                    </li>
+                    <wbr>
+                    <li>
+                        <a href="https://jonbarron.info/">
+                            Jonathan T. Barron
+                        </a><sup>2</sup>
+                    </li>
+                    <li>
+                        <a href="https://poolio.github.io/">
+                            Ben Poole
+                        </a><sup>3</sup>
+                    </li>
+                    <li>
+                        <a href="https://holynski.org/">
+                            Aleksander Holynski
+                        </a><sup>2</sup>*
+                    </li>
+                    <!-- </br>Google -->
+                </ul>
+            </div>
+<div class="col-md-3">
+    </div>
+            <div class="col-md-12 text-center">
+                <sup>1</sup>Columbia University, &nbsp <sup>2</sup>Google Research, &nbsp <sup>3</sup>Google DeepMind
+
+            </div>
+            <div class="col-md-12 text-center">
+                * equal contribution
+            </div> </div>
+
+
+        <div class="row text-center">
+					
+			     <span class="link-block">
+                <a href="https://arxiv.org/abs/2312.02981"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+                <a href="https://drive.google.com/drive/folders/10oT2_OQ9Sjh5wlfJQoGx2y7ZKYwpgNg5?usp=sharing"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                </a>
+              </span>
+			</div>
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <video id="teaser-video-ours" width="100%" autoplay loop muted controls>
+                  <source src="videos/teaser/wipe_4.mp4" type="video/mp4" />
+                </video>
+<!-- 
+                <video id="teaser-video-ours" width="100%" autoplay loop muted>
+                  <source src="videos/teaser/grid_ours.mp4" type="video/mp4" />
+                </video>
+                <video id="teaser-video-zipenrf" width="100%" autoplay loop muted hidden>
+                  <source src="videos/teaser/grid_zipnerf.mp4" type="video/mp4" />
+                </video>
+
+                <div class="switch-container-wrapper">
+                    <div class="switch-container">
+                        <span class="switch-label">Ours</span>
+                        <label class="switch">
+                            <input type="checkbox" id="teaserVideoSwitch" onclick="selectTeaserVideo()">
+                            <div class="slider round"></div>
+                        </label>
+                        <span class="switch-label">Zip-NeRF</span>
+                    </div>
+                </div>
+                <script>
+                    function selectTeaserVideo() {
+                      var video_ours = document.getElementById("teaser-video-ours");
+                      var video_zipnerf = document.getElementById("teaser-video-zipenrf");
+                      var videoSwitch = document.getElementById("teaserVideoSwitch");
+                      if (videoSwitch.checked) {
+                        video_zipnerf.hidden = false;
+                        video_ours.hidden = true;
+                      } else {
+                        video_zipnerf.hidden = true;
+                        video_ours.hidden = false;
+                      }
+                    }
+                </script>
+ -->
+			</div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Abstract
+                </h3>
+                <p class="text-justify">
+                    3D reconstruction methods such as Neural Radiance Fields (NeRFs) excel at rendering photorealistic novel views of complex scenes. However, recovering a high-quality NeRF typically requires tens to hundreds of input images, resulting in a time-consuming capture process. We present ReconFusion to reconstruct real-world scenes using only a few photos. Our approach leverages a diffusion prior for novel view synthesis, trained on synthetic and multiview datasets, which regularizes a NeRF-based 3D reconstruction pipeline at novel camera poses beyond those captured by the set of input images. Our method synthesizes realistic geometry and texture in underconstrained regions while preserving the appearance of observed regions. We perform an extensive evaluation across various real-world datasets, including forward-facing and 360-degree scenes, demonstrating significant performance improvements over previous few-view NeRF reconstruction approaches.
+                </p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+				  <b> <font color="#118ab2">Recon</font><font color="#ef486e">Fusion</font></b> = <font color="#118ab2">3D Reconstruction</font>  + <font color="#ef486e">Diffusion Prior</font>
+                </h3>
+                <image src="img/overview_combined.png" width=90% style="display: block; margin: auto;"></image>
+                <p class="text-justify">
+                    (a) We optimize a NeRF to minimize a reconstruction loss \(\mathcal{L}_\mathrm{recon}\) between renderings and a few input images, as well as a sample loss \(\mathcal{L}_\mathrm{sample}\) between a rendering from a random pose and an image predicted by a diffusion model for that pose. (b) To generate the sample image, we use a PixelNeRF-style model to fuse information from the input images and to render a predicted feature map corresponding to the sample view camera pose. (c) This feature map is concatenated with the noisy latent (computed from the current NeRF rendering at that pose) and is provided to a diffusion model, which additionally uses CLIP embeddings of the input images via cross-attention. The resulting decoded output sample is used to enforce an image-space loss on the corresponding NeRF rendering (\(\mathcal{L}_\mathrm{sample}\)).
+                </p>
+            </div>
+        </div><br><br>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+		<h3> ReconFusion enables high-quality 3D reconstruction from few views</h3><br>
+                <video id="co3d-grid" width="100%" autoplay loop muted controls>
+                  <source src="videos/results/co3d_3x5.mp4" type="video/mp4" />
+                </video>
+                <br>
+                    <p class="text-justify" style="text-align: center;">ReconFusion generalizes to everyday scenes: the same diffusion model prior is used for <b>all</b> reconstruction results.</p>
+			</div>
+        </div>
+
+
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+				  ReconFusion outperforms other few-view NeRF methods
+                </h3><br>
+
+                <div class="text-center ">
+                    <ul class="nav nav-pills center-pills">
+                        <li class="method-pill active" data-value="zipnerf"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>Zip-NeRF</a></li>
+                        <li class="method-pill" data-value="diffusionerf"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>DiffusioNeRF</a></li>
+                    </ul>
+                    <ul class="nav nav-pills center-pills">
+                        <li class="method-pill" data-value="freenerf"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>FreeNeRF</a></li>
+                        <li class="method-pill" data-value="simplenerf"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>SimpleNeRF</a></li>
+                        <li class="method-pill" data-value="zeronvs"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>ZeroNVS</a></li>
+                    </ul>
+                </div>
+
+                <script>
+                    activeMethodPill = document.querySelector('.method-pill.active-pill');
+                    activeScenePill = document.querySelector('.scene-pill.active-pill');
+                    activeModePill = document.querySelector('.mode-pill.active-pill');
+                </script>
+                
+                <div class="text-center">
+                    <div class="video-container">
+                        <video class="video" style="height: 280px; max-width: 100%;" m id="compVideo0" loop playsinline autoplay muted>
+                            <source src="videos/comparison/mipnerf360_bonsai_zipnerf_vs_ours_rgb.mp4" />
+                        </video>
+                        <video class="video" style="height: 280px; max-width: 100%;" id="compVideo1" loop playsinline autoplay muted hidden>
+                            <source src="videos/comparison/mipnerf360_bonsai_zipnerf_vs_ours_depth.mp4" />
+                        </video>
+                    </div>
+                    <div class="text-center" style="color: black;" id="mode-pills">
+                        <div class="btn-group btn-group-sm">
+                            <span class="btn btn-primary mode-pill active" data-value="rgb"
+                                onclick="selectCompVideo(activeMethodPill, activeScenePill, null, this)">
+                                RGB
+                            </span>
+                            <span class="btn btn-primary mode-pill" data-value="depth"
+                                onclick="selectCompVideo(activeMethodPill, activeScenePill, null, this)">
+                                Depth
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <br>
+                    <p class="text-justify" style="text-align: center;">
+                        Baseline method (left) vs ReconFusion (right). Scene trained on <span id="compVideoValue">9</span> views. Try selecting different methods and scenes!
+                    </p>
+                    <script>
+                        video0 = document.getElementById("compVideo0");
+                        video1 = document.getElementById("compVideo1");
+                        video0.addEventListener('loadedmetadata', function() {
+                            if (activeVidID == 0 && select){
+                                video0.play();
+                                // print video size
+                                console.log(video0.videoWidth, video0.videoHeight);
+                                video0.hidden = false;
+                                video1.hidden = true;
+                            }
+                        });
+                        video1.addEventListener('loadedmetadata', function() {
+                            if (activeVidID == 1 && select){
+                                video1.play();
+                                // print video size
+                                console.log(video1.videoWidth, video1.videoHeight);
+                                video0.hidden = true;
+                                video1.hidden = false;
+                            }
+                        });
+                    </script>
+
+                    <div class="pill-row scene-pills" id="scene-pills">
+                        <span class="pill scene-pill" data-value="dtu_scan31" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/dtu_scan31_thumbnail.jpg" alt="DTU/scan31" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="dtu_scan45" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/dtu_scan45_thumbnail.jpg" alt="DTU/scan45" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="llff_fern" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/llff_fern_thumbnail.jpg" alt="LLFF/fern" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="llff_horns" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/llff_horns_thumbnail.jpg" alt="LLFF/horns" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="re10k_00e8df74b6805da7" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/re10k_00e8df74b6805da7_thumbnail.jpg" alt="Re10K/sofa" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="re10k_000c3ab189999a83" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/re10k_000c3ab189999a83_thumbnail.jpg" alt="Re10K/living room" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="co3d_bench_185_19987_38634" onclick="selectCompVideo(activeMethodPill, this, 6)">
+                            <img class="thumbnail-img" src="thumbnails/co3d_bench_185_19987_38634_thumbnail.jpg" alt="CO3D/bench" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="co3d_plant_188_20319_36755" onclick="selectCompVideo(activeMethodPill, this, 6)">
+                            <img class="thumbnail-img" src="thumbnails/co3d_plant_188_20319_36755_thumbnail.jpg" alt="CO3D/plant" width="64">
+                        </span>
+                        <span class="pill scene-pill active" data-value="mipnerf360_bonsai" onclick="selectCompVideo(activeMethodPill, this, 9)">
+                            <img class="thumbnail-img" src="thumbnails/mipnerf360_bonsai_thumbnail.jpg" alt="mip-NeRF 360/bonsai" width="64">
+                        </span>
+                        <span class="pill scene-pill" data-value="mipnerf360_kitchen" onclick="selectCompVideo(activeMethodPill, this, 9)">
+                            <img class="thumbnail-img" src="thumbnails/mipnerf360_kitchen_thumbnail.jpg" alt="mip-NeRF 360/kitchen" width="64">
+                        </span>
+                    </div>
+
+                    <script>
+                        activeMethodPill = document.querySelector('.method-pill.active-pill');
+                        activeScenePill = document.querySelector('.scene-pill.active-pill');
+                        activeModePill = document.querySelector('.mode-pill.active-pill');
+                    </script>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+				  ReconFusion improves both few-view and many-view reconstruction
+                </h3><br>
+                <!-- <p class="text-justify" style="color:red">
+                    Hover over the plot to show rendered video under different number of views.
+                </p> -->
+                
+                <!-- top down layout -->
+                <canvas id="sparsityChart" style="max-height: 300px; max-width: 500px; margin: auto;"></canvas>
+                <script src="js/sparsity_chart.js"></script>
+                <br>
+                <p class="text-center">
+                    Our diffusion prior improves performance over baseline Zip-NeRF in both the few-view and many-view sampling regimes.
+                </p>
+    
+                <div class="text-center">
+                    <div class="video-compare-container" id="materialsDiv">
+                        <video class="video" id="sparsity" loop playsinline autoPlay muted src="videos/sparsity/stacked_vid.mp4" onplay="resizeAndPlay(this)"></video>
+                        <canvas height=0 class="videoMerge" id="sparsityMerge"></canvas>
+                    </div>
+                    <!-- <canvas height=0 class="videoWrapper" id="sparsityVideoWrapper"></canvas> -->
+			<em>Move the slider to adjust the number of views. The left column shows the nearest input view.</em>
+                    <div class="slider-container" style="padding-left: 12%; padding-right: 11%;">
+                        <input type="range" class="styled-slider" id="sparsitySlider" min="0" max="6" step="1" value="0" list="slider-labels">
+                        <datalist id="slider-labels">
+                            <option value="0">3</option>
+                            <option value="1">6</option>
+                            <option value="2">9</option>
+                            <option value="3">18</option>
+                            <option value="4">27</option>
+                            <option value="5">54</option>
+                            <option value="6">81</option>
+                        </datalist>
+                    </div>
+                    <table style="text-align: left; padding-left: 0px; padding-right: 10%; width: 100%;">
+                        <tr>
+                            <th width="10%"></th>
+                            <td width="10%">3</td>
+                            <td width="10%">6</td>
+                            <td width="10%">9</td>
+                            <td width="10%">18</td>
+                            <td width="10%">27</td>
+                            <td width="10%">54</td>
+                            <td width="10%">81</td>
+                        </tr>
+                    </table><br>
+                    <!-- <div class="text-center">
+                        Rendered video under <span id="sparsityValue" style="color: red;">3</span> views
+                    </div> -->
+                </div>
+                
+                <!-- left right layout -->
+                <!-- <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                      <td style="text-align: center;" >
+                        <canvas id="sparsityChart" style="max-height: 250px; max-width: 200px; margin: auto;"></canvas>
+                        <script src="js/sparsity_chart.js"></script>
+                      </td>
+                      <td style="text-align: center;">
+                        <video class="video" width=100% id="sparsityVideo" loop playsinline autoplay muted onplay="playOnCanvas(this, 180)">
+                            <source src="videos/sparsity/kitchenlego_3.mp4" type="video/mp4" />
+                        </video>
+                        <canvas height=0 class="videoWrapper" id="sparsityVideoWrapper"></canvas>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center;"></td>
+                      <td style="text-align: center;">Rendered video under <span id="sparsityValue" style="color: red;">3</span> views</td>
+                    </tr>
+                </table> -->
+<br>
+            </div>
+        </div><br><br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h3>
+                    ReconFusion distills a consistent 3D model from inconsistent samples
+                </h3><br>
+                
+                <table style="margin-left: auto; margin-right: auto; width: 90%;">
+                    <tr>
+                      <th style="width: 4%;"></th>
+                      <th style="text-align: center;width: 32%;">LLFF (3 views)</th>
+                      <th style="text-align: center;width: 32%;">CO3D (6 views)</th>
+					  <th style="text-align: center;width: 32%;">mip-NeRF 360 (9 views)</th>
+                    </tr>
+                    <tr>
+                      <td style="text-align: center; writing-mode: vertical-lr; transform: rotate(180deg); width:4%">3D Reconstruction</td>
+                      <td rowspan="2" colspan="3" style="width: 96%">
+                        <video class="video" width=100% loop playsinline autoplay muted controls>
+                            <source src="videos/ablation/recon_vs_samples.mp4" />
+                        </video>
+                      </td>
+                      <!-- <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/z123_nerf.mp4" />
+                        </video>
+                      </td>
+                      <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/scratch_nerf.mp4" />
+                        </video>
+                      </td>
+                      <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/ours_nerf.mp4" />
+                        </video>
+                      </td> -->
+                    </tr>
+                    <tr>
+					  <td style="text-align: center; writing-mode: vertical-lr; transform: rotate(180deg); width:4%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Samples&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td></td>
+                      <!-- <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/z123_samples.mp4" />
+                        </video>
+                      </td>
+                      <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/scratch_samples.mp4" />
+                        </video>
+                      </td>
+                      <td style="text-align: center;">
+                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
+                            <source src="videos/ablation/ours_samples.mp4" />
+                        </video>
+                      </td> -->
+                    </tr>
+                </table>
+                <br>
+<!-- 
+                <p class="text-justify" style="width: 85%; margin: auto;"> -->
+                <p class="text-justify" style="width:85%; margin:auto">
+                    ReconFusion recovers consistent 3D reconstructions (top) from a diffusion model that produces image samples independently for each viewpoint (bottom). These samples are not multiview consistent, but can produce high-quality 3D reconstructions when used as a prior in optimization.
+                </p>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Citation
+                </h3>
+                <div class="form-group col-md-10 col-md-offset-1">
+				  <p class="text-justify">
+                    <textarea id="bibtex" class="form-control" readonly>
+@article{wu2023reconfusion,
+    title={ReconFusion: 3D Reconstruction with Diffusion Priors},
+    author={Rundi Wu and Ben Mildenhall and Philipp Henzler and 
+			Keunhong Park and Ruiqi Gao and Daniel Watson and 
+			Pratul P. Srinivasan and Dor Verbin and Jonathan T. Barron 
+			and Ben Poole and Aleksander Holynski},
+    journal={arXiv},
+    year={2023}
+	}</textarea></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Acknowledgements
+                </h3>
+                <p class="text-justify">
+                We would like to thank Arthur Brussee, Ricardo Martin-Brualla, Rick Szeliski, Peter Hedman, Jason Baldridge, and Angjoo Kanazawa for their valuable contributions in discussing the project and reviewing the manuscript, and Zhicheng Wang for setting up some of the data loaders necessary for our diffusion model training pipeline. We are grateful to Randy Persaud and Henna Nandwani for infrastructure support. We also extend our gratitude to Shlomi Fruchter, Kevin Murphy, Mohammad Babaeizadeh, Han Zhang and Amir Hertz for training the base text-to-image latent diffusion model.
+                    <br><br>
+                The website template was borrowed from <a href="http://mgharbi.com/">Michaël Gharbi</a> and <a href="https://dorverbin.github.io/refnerf">Ref-NeRF</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
