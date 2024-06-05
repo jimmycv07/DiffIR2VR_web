@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>NaRCan</title>
+    <title>DiffIR2VR-Zero</title>
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,16 +17,16 @@
     <meta property="og:image:height" content="840">
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://jimmycv07.github.io/DiffIR2VR_web/"/>
-    <meta property="og:title" content="NaRCan: Natural Refined Canonical Image with Integration of Diffusion Prior for Video Editing" />
-    <meta property="og:description" content="Video editing approaches, especially through image-based diffusion models, have seen significant advancements but struggle with temporal consistency in video-to-video tasks. Existing models often fail to maintain sequence temporal consistency, disrupting frame transitions. To tackle this issue, this paper introduces NaRCan, a video editing framework that integrates a hybrid deformation field network with diffusion priors. Unlike conventional methods that generate a canonical image as a singular representation of video content, our approach ensures the production of high-quality, natural canonical images, which are crucial for downstream tasks like handwriting, style transfer, and dynamic segmentation. By leveraging a hybrid deformation field module and a sophisticated-designed scheduling method, NaRCan offers improved adaptability and superior editing capabilities across various video editing applications. Extensive experimental results show that our method outperforms existing approaches in producing coherent and high-quality video sequences. This work advances the state of video editing approaches and provides a robust solution for maintaining sequence temporal consistency using diffusion-based methods." />
+    <meta property="og:title" content="DiffIR2VR-Zero: Zero-Shot Video Restoration with Diffusion-based Image Restoration Models" />
+    <meta property="og:description" content="This paper introduces a method for zero-shot video restoration using pre-trained image restoration diffusion models. Traditional video restoration methods often need retraining for different settings and struggle with limited generalization across various degradation types and datasets. Our approach uses a hierarchical token merging strategy for keyframes and local frames, combined with a hybrid correspondence mechanism that blends optical flow and feature-based nearest neighbor matching (latent merging). We show that our method not only achieves top performance in zero-shot video restoration but also significantly surpasses trained models in generalization across diverse datasets and extreme degradations (8$\times$ super-resolution and high-standard deviation video denoising). We present evidence through quantitative metrics and visual comparisons on various challenging datasets. Additionally, our technique works with any 2D restoration diffusion model, offering a versatile and powerful tool for video enhancement tasks without extensive retraining. This research leads to more efficient and widely applicable video restoration technologies, supporting advancements in fields that require high-quality video output." />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="NaRCan: Natural Refined Canonical Image with Integration of Diffusion Prior for Video Editing" />
-    <meta name="twitter:description" content="Video editing approaches, especially through image-based diffusion models, have seen significant advancements but struggle with temporal consistency in video-to-video tasks. Existing models often fail to maintain sequence temporal consistency, disrupting frame transitions. To tackle this issue, this paper introduces NaRCan, a video editing framework that integrates a hybrid deformation field network with diffusion priors. Unlike conventional methods that generate a canonical image as a singular representation of video content, our approach ensures the production of high-quality, natural canonical images, which are crucial for downstream tasks like handwriting, style transfer, and dynamic segmentation. By leveraging a hybrid deformation field module and a sophisticated-designed scheduling method, NaRCan offers improved adaptability and superior editing capabilities across various video editing applications. Extensive experimental results show that our method outperforms existing approaches in producing coherent and high-quality video sequences. This work advances the state of video editing approaches and provides a robust solution for maintaining sequence temporal consistency using diffusion-based methods." />
+    <meta name="twitter:title" content="DiffIR2VR-Zero: Zero-Shot Video Restoration with Diffusion-based Image Restoration Models" />
+    <meta name="twitter:description" content="This paper introduces a method for zero-shot video restoration using pre-trained image restoration diffusion models. Traditional video restoration methods often need retraining for different settings and struggle with limited generalization across various degradation types and datasets. Our approach uses a hierarchical token merging strategy for keyframes and local frames, combined with a hybrid correspondence mechanism that blends optical flow and feature-based nearest neighbor matching (latent merging). We show that our method not only achieves top performance in zero-shot video restoration but also significantly surpasses trained models in generalization across diverse datasets and extreme degradations (8$\times$ super-resolution and high-standard deviation video denoising). We present evidence through quantitative metrics and visual comparisons on various challenging datasets. Additionally, our technique works with any 2D restoration diffusion model, offering a versatile and powerful tool for video enhancement tasks without extensive retraining. This research leads to more efficient and widely applicable video restoration technologies, supporting advancements in fields that require high-quality video output." />
     <meta name="twitter:image" content="https://jimmycv07.github.io/DiffIR2VR_web/img/overview_combined.jpg" />
 
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💊</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>0️⃣</text></svg>">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -37,6 +37,9 @@
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="css/bulma-slider.min.css">
 
     <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8ZERS5BVPS"></script>
@@ -60,14 +63,16 @@
 
     <script src="js/app.js"></script>
     <script src="js/video_comparison.js"></script>
-    <script src="js/synced_video_selector.js"></script>
+    <script src="js/bulma-carousel.js"></script>
+    <script src="js/bulma-slider.min.js"></script>
+    <script src="js/index.js"></script>
 </head>
 
 <body style="padding: 1%; width: 100%">
     <div class="container" style="max-width: 1500px; margin: auto;" id="main">
         <div class="row">
             <h2 class="col-md-12 text-center">
-                <b>NaRCan</b>:<br>Natural Refined Canonical Image with Integration of Diffusion Prior for Video Editing</br> 
+                <b>DiffIR2VR-Zero</b>:<br>Zero-Shot Video Restoration with Diffusion-based Image Restoration Models</br> 
                 <!-- <small>
                 ICCV 2023 (Oral Presentation, Best Paper Finalist)
                 </small> -->
@@ -77,36 +82,36 @@
             <div class="col-md-12 text-center">
                 <ul class="list-inline">
                     <li>
+                        <a href="">
+                            Changhan Yeh¹
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://linjohnss.github.io/">
+                            Chin-Yang Lin¹
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://lightchaserx.github.io/">
+                            Zhixiang Wang²
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://chiweihsiao.github.io/">
+                            Chi-Wei Hsiao³
+                        </a>
+                    </li>
+                    <li>
                         <a href="https://koi953215.github.io/">
-                            Ting-Hsuan Chen
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            Jiewen Chan
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            Shih Han Yen
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            Hau-Shiang Shiu
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            Changhan Yeh
+                            Ting-Hsuan Chen¹
                         </a>
                     </li>
                     <li>
                         <a href="https://yulunalexliu.github.io/">
-                            Yu-Lun Liu
+                            Yu-Lun Liu¹
                         </a>
                     </li>
-                    </br>National Yang Ming Chiao Tung University
+                    </br>¹National Yang Ming Chiao Tung University&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;²University of Tokyo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;³MediaTek Inc.
                 </ul>
             </div>
         </div>
@@ -137,15 +142,79 @@
                 </div>
         </div>
 
+        <section class="hero is-light is-small">
+            <div class="hero-body">
+              <div class="container">
+                <div id="results-carousel" class="carousel results-carousel">
 
+                    <div class="item item-CVAI-2828RAO2_CRA32">
+                        <div class="video-compare-container" id="CVAI-2828RAO2_CRA32Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2828RAO2_CRA32" loop playsinline autoPlay muted src="videos/SRx4_car-shadow_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2828RAO2_CRA32Merge" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
 
-        <div class="row">
+                    <div class="item item-CVAI-2829RAO9_CRA37">
+                        <div class="video-compare-container" id="CVAI-2829RAO9_CRA37Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2829RAO9_CRA37" loop playsinline autoPlay muted src="videos/SRx4_breakdance_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2829RAO9_CRA37Merge" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="item item-CVAI-2829RAO14_CAU37">
+                        <div class="video-compare-container" id="CVAI-2829RAO14_CAU37Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2829RAO14_CAU37" loop playsinline autoPlay muted src="videos/SRx4_parkour_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2829RAO14_CAU37Merge" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="item item-CVAI-2832RAO7_CAU29">
+                        <div class="video-compare-container" id="CVAI-2832RAO7_CAU29Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2832RAO7_CAU29" loop playsinline autoPlay muted src="videos/SRx4_motocross-jump_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2832RAO7_CAU29Merge" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="video-compare-container" id="CVAI-2840RAO10_CAU32Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2840RAO10_CAU32" loop playsinline autoPlay muted src="videos/noise_100_026_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2840RAO10_CAU32Merge" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="video-compare-container" id="CVAI-2847LAO1_CRA32Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2847LAO1_CRA32" loop playsinline autoPlay muted src="videos/noise_100_006_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2847LAO1_CRA32Merge" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="video-compare-container" id="CVAI-2855LAO26_CRA31Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2855LAO26_CRA31" loop playsinline autoPlay muted src="videos/noise_100_009_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2855LAO26_CRA31Merge" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="video-compare-container" id="CVAI-2858LAO51_CRA9Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2858LAO51_CRA9" loop playsinline autoPlay muted src="videos/noise_100_024_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2858LAO51_CRA9Merge" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <!-- <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <video id="v0" width="100%" autoplay loop muted controls>
                   <source src="img/teaser.mp4" type="video/mp4" />
                 </video>
 						</div>
-        </div>
+        </div> -->
 
 
         <div class="row">
@@ -154,7 +223,7 @@
                     Abstract
                 </h3>
                 <p class="text-justify">
-                    Video editing approaches, especially through image-based diffusion models, have seen significant advancements but struggle with temporal consistency in video-to-video tasks. Existing models often fail to maintain sequence temporal consistency, disrupting frame transitions. To tackle this issue, this paper introduces NaRCan, a video editing framework that integrates a hybrid deformation field network with diffusion priors. Unlike conventional methods that generate a canonical image as a singular representation of video content, our approach ensures the production of high-quality, natural canonical images, which are crucial for downstream tasks like handwriting, style transfer, and dynamic segmentation. By leveraging a hybrid deformation field module and a sophisticated-designed scheduling method, NaRCan offers improved adaptability and superior editing capabilities across various video editing applications. Extensive experimental results show that our method outperforms existing approaches in producing coherent and high-quality video sequences. This work advances the state of video editing approaches and provides a robust solution for maintaining sequence temporal consistency using diffusion-based methods.
+                    This paper introduces a method for zero-shot video restoration using pre-trained image restoration diffusion models. Traditional video restoration methods often need retraining for different settings and struggle with limited generalization across various degradation types and datasets. Our approach uses a hierarchical token merging strategy for keyframes and local frames, combined with a hybrid correspondence mechanism that blends optical flow and feature-based nearest neighbor matching (latent merging). We show that our method not only achieves top performance in zero-shot video restoration but also significantly surpasses trained models in generalization across diverse datasets and extreme degradations (8$\times$ super-resolution and high-standard deviation video denoising). We present evidence through quantitative metrics and visual comparisons on various challenging datasets. Additionally, our technique works with any 2D restoration diffusion model, offering a versatile and powerful tool for video enhancement tasks without extensive retraining. This research leads to more efficient and widely applicable video restoration technologies, supporting advancements in fields that require high-quality video output.
                 </p>
             </div>
         </div>
