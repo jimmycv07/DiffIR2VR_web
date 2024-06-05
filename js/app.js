@@ -57,9 +57,10 @@ function selectCompVideo(methodPill, scenePill, n_views, modePill) {
 
     // swap video to avoid flickering
     activeVidID = 1 - activeVidID;
-    var video_active = document.getElementById("compVideo" + activeVidID);
-    var video_hidden = document.getElementById("compVideo" + (1 - activeVidID));
-    video_active.src = "videos/comparison/" + pill + "_" + method + "_vs_ours_" + mode + ".mp4";
+    var video_active = document.getElementById("compare");
+    // var video_active = document.getElementById("compVideo" + activeVidID);
+    // var video_hidden = document.getElementById("compVideo" + (1 - activeVidID));
+    video_active.src = "videos/" + mode + "_" + pill + "_" +method + "_vs_ours.mp4";
     video_active.load();
 
     if (n_views) {

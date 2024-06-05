@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta property="og:image" content="https://jimmycv07.github.io/DiffIR2VR_web/img/overview_combined.jpg">
+    <meta property="og:image" content="https://jimmycv07.github.io/DiffIR2VR_web/img/pipeline.jpg">
     <meta property="og:image:type" content="image/png">
     <meta property="og:image:width" content="1296">
     <meta property="og:image:height" content="840">
@@ -23,7 +23,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="DiffIR2VR-Zero: Zero-Shot Video Restoration with Diffusion-based Image Restoration Models" />
     <meta name="twitter:description" content="This paper introduces a method for zero-shot video restoration using pre-trained image restoration diffusion models. Traditional video restoration methods often need retraining for different settings and struggle with limited generalization across various degradation types and datasets. Our approach uses a hierarchical token merging strategy for keyframes and local frames, combined with a hybrid correspondence mechanism that blends optical flow and feature-based nearest neighbor matching (latent merging). We show that our method not only achieves top performance in zero-shot video restoration but also significantly surpasses trained models in generalization across diverse datasets and extreme degradations (8$\times$ super-resolution and high-standard deviation video denoising). We present evidence through quantitative metrics and visual comparisons on various challenging datasets. Additionally, our technique works with any 2D restoration diffusion model, offering a versatile and powerful tool for video enhancement tasks without extensive retraining. This research leads to more efficient and widely applicable video restoration technologies, supporting advancements in fields that require high-quality video output." />
-    <meta name="twitter:image" content="https://jimmycv07.github.io/DiffIR2VR_web/img/overview_combined.jpg" />
+    <meta name="twitter:image" content="https://jimmycv07.github.io/DiffIR2VR_web/img/pipeline.jpg" />
 
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>0️⃣</text></svg>">
@@ -83,35 +83,35 @@
                 <ul class="list-inline">
                     <li>
                         <a href="">
-                            Changhan Yeh¹
-                        </a>
+                            Changhan Yeh
+                        </a><sup>1</sup>
                     </li>
                     <li>
                         <a href="https://linjohnss.github.io/">
-                            Chin-Yang Lin¹
-                        </a>
+                            Chin-Yang Lin
+                        </a><sup>1</sup>
                     </li>
                     <li>
                         <a href="https://lightchaserx.github.io/">
-                            Zhixiang Wang²
-                        </a>
+                            Zhixiang Wang
+                        </a><sup>2</sup>
                     </li>
                     <li>
                         <a href="https://chiweihsiao.github.io/">
-                            Chi-Wei Hsiao³
-                        </a>
+                            Chi-Wei Hsiao
+                        </a><sup>3</sup>
                     </li>
                     <li>
                         <a href="https://koi953215.github.io/">
-                            Ting-Hsuan Chen¹
-                        </a>
+                            Ting-Hsuan Chen
+                        </a><sup>1</sup>
                     </li>
                     <li>
                         <a href="https://yulunalexliu.github.io/">
-                            Yu-Lun Liu¹
-                        </a>
+                            Yu-Lun Liu
+                        </a><sup>1</sup>
                     </li>
-                    </br>¹National Yang Ming Chiao Tung University&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;²University of Tokyo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;³MediaTek Inc.
+                    </br><sup>1</sup>National Yang Ming Chiao Tung University&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sup>2</sup>University of Tokyo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<sup>3</sup>MediaTek Inc.
                 </ul>
             </div>
         </div>
@@ -207,6 +207,12 @@
             </div>
         </section>
 
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <b>DiffIR2VR-Zero</b> is a zero-shot video restoration method using pre-trained diffusion models, effectively handling up to 8x super-resolution and denoising without retraining.
+			</div>
+        </div><br>
+
         <!-- <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <video id="v0" width="100%" autoplay loop muted controls>
@@ -231,78 +237,50 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
-				  <b><font color="#4472c4">NaR</font><font color="#ff0000">Can</font></b> = <font color="#4472c4"><b>Na</b>tural <b>R</b>efined</font> <font color="#ff0000"><b>Can</b>onical Image</font> with <font color="#ed7d31"><b>Diffusion Prior</b></font>
+                    Video super-resolution
                 </h3>
-                <image src="img/teaser.jpg" width=100% style="display: block; margin: auto;"></image>
-                <br>
+                <image src="img/motivation.jpg" width=100% style="display: block; margin: auto;"></image>
                 <p class="text-justify">
-                    <b>Video representation with diffusion prior.</b> Given an RGB video, we can represent the video using a canonical image. However, the canonical image and reconstruction training process focuses only on reconstruction quality and could produce an unnatural canonical image. This could cause problems with downstream tasks such as prompt-based video editing. In the bottom example, if the hand is distorted in the canonical image, the image editor, such as ControlNet, may not recognize it and could introduce an irrelevant object instead. In this paper, we propose introducing the <i>diffusion prior</i> from a LoRA fine-tuned diffusion model to the training pipeline and constraining the canonical image to be natural. Our method facilitates several downstream tasks, such as (a) video editing, (b) dynamic segmentation, and (c) video style transfer.
+                    (a) Traditional regression-based methods such as FMA-Net are limited to the training data domain and tend to produce blurry results when encountering out-of-domain inputs. (b) Although applying image-based diffusion models such as DiffBIR to individual frames can generate realistic details, these details often lack consistency across frames. (c) Our method leverages an image diffusion model to restore videos, achieving both realistic and consistent results <i>without</i> any additional training.
                 </p>
             </div>
-        </div><br>
+        </div>
 
         <br>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
-                    Our proposed framework
+                    Ours proposed zero-shot video restoration
                 </h3>
-                <image src="img/overview_combined.jpg" width=100% style="display: block; margin: auto;"></image>
-                <br>
+                <image src="img/pipeline.jpg" width=100% style="display: block; margin: auto;"></image>
                 <p class="text-justify">
-                    Given an input video sequence, our method aims to represent the video with a <i>natural</i> canonical image, which is a crucial representation for versatile downstream applications. (a) First, we fine-tune the LoRA weights of a pre-trained latent diffusion model on the input frames. (b) Second, we represent the video using a canonical MLP and a deformation field, which consists of homography estimation and residual deformation MLP for non-rigid residual deformations. By relying entirely on the reconstruction loss, the canonical MLP often fails to represent a natural canonical image, causing problems for downstream applications. <i>E.g.</i>, image-to-image translation methods such as ControlNet may not be able to recognize that there is a train in the canonical image. (c) Therefore, we leverage the fine-tuned latent diffusion model to regularize and correct the unnatural canonical image into a natural one. Specifically, we sophistically design a noise scheduling corresponding to the frame reconstruction process. (d) The natural and artifacts-free canonical image can then be facilitated to various downstream tasks such as video style transfer, dynamic segmentation, and editing, such as adding handwritten characters.
+                    We process low-quality (LQ) videos in batches using a diffusion model, with a keyframe randomly sampled within each batch. (a) At the beginning of the diffusion denoising process, hierarchical latent warping provides rough shape guidance both globally, through latent warping between keyframes, and locally, by propagating these latents within the batch. (b) Throughout most of the denoising process, tokens are merged before the self-attention layer. For the downsample blocks, optical flow is used to find the correspondence between tokens, and for the upsample blocks, cosine similarity is utilized. This hybrid flow-guided, spatial-aware token merging accurately identifies correspondences between tokens by leveraging both flow and spatial information, thereby enhancing overall consistency at the token level.
                 </p>
             </div>
-        </div><br>
+        </div>
+
+
+
 
         <br>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
-                    Noise and diffusion prior update scheduling
-                </h3>
-                <image src="img/scheduling.jpg" width=100% style="display: block; margin: auto;"></image>
-                <br>
-                <p class="text-justify">
-                    Initially, our model fits object outlines before the fields converge and without the diffusion prior, resulting in unnatural elements in the canonical image due to complex non-rigid objects. Upon introducing the diffusion prior with increased noise and update frequency, the model learns to generate natural, high-quality images, leading to convergence. Thus, the strength of noise and the update frequency will also decrease. Moreover, it's worth mentioning that update scheduling cuts training time from 4.8 hours to 20 minutes.
-                </p>
-            </div>
-        </div><br>
-
-        <br>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    User study
-                </h3>
-                <image src="img/user_study.jpg" width=100% style="display: block; margin: auto;"></image>
-                <p class="text-justify">
-                    Our method achieves the highest user preference ratios across all three aspects, compared with MeDM, CoDeF, Hashing-nvd.
-                </p>
-            </div>
-        </div><br>
-
-        <br>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-				  ReconFusion outperforms other few-view NeRF methods
+                    Qualitative comparisons on video super-resolution
                 </h3><br>
 
                 <div class="text-center ">
                     <ul class="nav nav-pills center-pills">
-                        <li class="method-pill active" data-value="zipnerf"
-                            onclick="selectCompVideo(this, activeScenePill)"><a>Zip-NeRF</a></li>
-                        <li class="method-pill" data-value="diffusionerf"
-                            onclick="selectCompVideo(this, activeScenePill)"><a>DiffusioNeRF</a></li>
-                    </ul>
-                    <ul class="nav nav-pills center-pills">
-                        <li class="method-pill" data-value="freenerf"
-                            onclick="selectCompVideo(this, activeScenePill)"><a>FreeNeRF</a></li>
-                        <li class="method-pill" data-value="simplenerf"
-                            onclick="selectCompVideo(this, activeScenePill)"><a>SimpleNeRF</a></li>
-                        <li class="method-pill" data-value="zeronvs"
-                            onclick="selectCompVideo(this, activeScenePill)"><a>ZeroNVS</a></li>
+                        <li class="method-pill active" data-value="lq"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>Input</a></li>
+                        <li class="method-pill" data-value="vidtome"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>VidToMe</a></li>
+                        <li class="method-pill" data-value="FMA-Net"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>FMA-Net</a></li>
+                        <li class="method-pill" data-value="SDx4_perframe"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>SD x4 upscaler</a></li>
+                        <li class="method-pill" data-value="DiffBIR_perframe"
+                            onclick="selectCompVideo(this, activeScenePill)"><a>DiffBIR</a></li>
                     </ul>
                 </div>
 
@@ -313,23 +291,27 @@
                 </script>
                 
                 <div class="text-center">
-                    <div class="video-container">
+                    <div class="video-compare-container" id="compareDiv" style="width: 100%;">
+                        <video class="video" id="compare" loop playsinline autoPlay muted src="videos/SRx4_car-shadow_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                        <canvas height=0 class="videoMerge" id="compareMerge" style="width: 100%;"></canvas>
+                    </div>
+                    <!-- <div class="video-container">
                         <video class="video" style="height: 280px; max-width: 100%;" m id="compVideo0" loop playsinline autoplay muted>
                             <source src="videos/comparison/mipnerf360_bonsai_zipnerf_vs_ours_rgb.mp4" />
                         </video>
                         <video class="video" style="height: 280px; max-width: 100%;" id="compVideo1" loop playsinline autoplay muted hidden>
                             <source src="videos/comparison/mipnerf360_bonsai_zipnerf_vs_ours_depth.mp4" />
                         </video>
-                    </div>
+                    </div> -->
                     <div class="text-center" style="color: black;" id="mode-pills">
                         <div class="btn-group btn-group-sm">
-                            <span class="btn btn-primary mode-pill active" data-value="rgb"
+                            <span class="btn btn-primary mode-pill active" data-value="SRx4"
                                 onclick="selectCompVideo(activeMethodPill, activeScenePill, null, this)">
-                                RGB
+                                x4
                             </span>
-                            <span class="btn btn-primary mode-pill" data-value="depth"
+                            <span class="btn btn-primary mode-pill" data-value="SRx8"
                                 onclick="selectCompVideo(activeMethodPill, activeScenePill, null, this)">
-                                Depth
+                                x8
                             </span>
                         </div>
                     </div>
@@ -363,34 +345,34 @@
                     </script>
 
                     <div class="pill-row scene-pills" id="scene-pills">
-                        <span class="pill scene-pill" data-value="dtu_scan31" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                        <span class="pill scene-pill" data-value="car-shadow" onclick="selectCompVideo(activeMethodPill, this, 3)">
                             <img class="thumbnail-img" src="thumbnails/dtu_scan31_thumbnail.jpg" alt="DTU/scan31" width="64">
                         </span>
-                        <span class="pill scene-pill" data-value="dtu_scan45" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                        <span class="pill scene-pill" data-value="breakdance" onclick="selectCompVideo(activeMethodPill, this, 3)">
                             <img class="thumbnail-img" src="thumbnails/dtu_scan45_thumbnail.jpg" alt="DTU/scan45" width="64">
                         </span>
-                        <span class="pill scene-pill" data-value="llff_fern" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                        <span class="pill scene-pill" data-value="parkour" onclick="selectCompVideo(activeMethodPill, this, 3)">
                             <img class="thumbnail-img" src="thumbnails/llff_fern_thumbnail.jpg" alt="LLFF/fern" width="64">
                         </span>
-                        <span class="pill scene-pill" data-value="llff_horns" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                        <span class="pill scene-pill" data-value="motocross-jump" onclick="selectCompVideo(activeMethodPill, this, 3)">
                             <img class="thumbnail-img" src="thumbnails/llff_horns_thumbnail.jpg" alt="LLFF/horns" width="64">
                         </span>
-                        <span class="pill scene-pill" data-value="re10k_00e8df74b6805da7" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                        <span class="pill scene-pill" data-value="blackswan" onclick="selectCompVideo(activeMethodPill, this, 3)">
                             <img class="thumbnail-img" src="thumbnails/re10k_00e8df74b6805da7_thumbnail.jpg" alt="Re10K/sofa" width="64">
                         </span>
-                        <span class="pill scene-pill" data-value="re10k_000c3ab189999a83" onclick="selectCompVideo(activeMethodPill, this, 3)">
+                        <span class="pill scene-pill" data-value="drift-straight" onclick="selectCompVideo(activeMethodPill, this, 3)">
                             <img class="thumbnail-img" src="thumbnails/re10k_000c3ab189999a83_thumbnail.jpg" alt="Re10K/living room" width="64">
                         </span>
-                        <span class="pill scene-pill" data-value="co3d_bench_185_19987_38634" onclick="selectCompVideo(activeMethodPill, this, 6)">
+                        <span class="pill scene-pill" data-value="dance-twirl" onclick="selectCompVideo(activeMethodPill, this, 6)">
                             <img class="thumbnail-img" src="thumbnails/co3d_bench_185_19987_38634_thumbnail.jpg" alt="CO3D/bench" width="64">
                         </span>
-                        <span class="pill scene-pill" data-value="co3d_plant_188_20319_36755" onclick="selectCompVideo(activeMethodPill, this, 6)">
+                        <span class="pill scene-pill" data-value="goat" onclick="selectCompVideo(activeMethodPill, this, 6)">
                             <img class="thumbnail-img" src="thumbnails/co3d_plant_188_20319_36755_thumbnail.jpg" alt="CO3D/plant" width="64">
                         </span>
-                        <span class="pill scene-pill active" data-value="mipnerf360_bonsai" onclick="selectCompVideo(activeMethodPill, this, 9)">
+                        <span class="pill scene-pill active" data-value="dog" onclick="selectCompVideo(activeMethodPill, this, 9)">
                             <img class="thumbnail-img" src="thumbnails/mipnerf360_bonsai_thumbnail.jpg" alt="mip-NeRF 360/bonsai" width="64">
                         </span>
-                        <span class="pill scene-pill" data-value="mipnerf360_kitchen" onclick="selectCompVideo(activeMethodPill, this, 9)">
+                        <span class="pill scene-pill" data-value="libby" onclick="selectCompVideo(activeMethodPill, this, 9)">
                             <img class="thumbnail-img" src="thumbnails/mipnerf360_kitchen_thumbnail.jpg" alt="mip-NeRF 360/kitchen" width="64">
                         </span>
                     </div>
@@ -404,6 +386,67 @@
             </div>
         </div>
         <br>
+
+
+
+
+
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+				  <b><font color="#4472c4">NaR</font><font color="#ff0000">Can</font></b> = <font color="#4472c4"><b>Na</b>tural <b>R</b>efined</font> <font color="#ff0000"><b>Can</b>onical Image</font> with <font color="#ed7d31"><b>Diffusion Prior</b></font>
+                </h3>
+                <image src="img/teaser.jpg" width=100% style="display: block; margin: auto;"></image>
+                <br>
+                <p class="text-justify">
+                    <b>Video representation with diffusion prior.</b> Given an RGB video, we can represent the video using a canonical image. However, the canonical image and reconstruction training process focuses only on reconstruction quality and could produce an unnatural canonical image. This could cause problems with downstream tasks such as prompt-based video editing. In the bottom example, if the hand is distorted in the canonical image, the image editor, such as ControlNet, may not recognize it and could introduce an irrelevant object instead. In this paper, we propose introducing the <i>diffusion prior</i> from a LoRA fine-tuned diffusion model to the training pipeline and constraining the canonical image to be natural. Our method facilitates several downstream tasks, such as (a) video editing, (b) dynamic segmentation, and (c) video style transfer.
+                </p>
+            </div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Our proposed framework
+                </h3>
+                <image src="img/overview_combined.jpg" width=100% style="display: block; margin: auto;"></image>
+                <br>
+                <p class="text-justify">
+                    Given an input video sequence, our method aims to represent the video with a <i>natural</i> canonical image, which is a crucial representation for versatile downstream applications. (a) First, we fine-tune the LoRA weights of a pre-trained latent diffusion model on the input frames. (b) Second, we represent the video using a canonical MLP and a deformation field, which consists of homography estimation and residual deformation MLP for non-rigid residual deformations. By relying entirely on the reconstruction loss, the canonical MLP often fails to represent a natural canonical image, causing problems for downstream applications. <i>E.g.</i>, image-to-image translation methods such as ControlNet may not be able to recognize that there is a train in the canonical image. (c) Therefore, we leverage the fine-tuned latent diffusion model to regularize and correct the unnatural canonical image into a natural one. Specifically, we sophistically design a noise scheduling corresponding to the frame reconstruction process. (d) The natural and artifacts-free canonical image can then be facilitated to various downstream tasks such as video style transfer, dynamic segmentation, and editing, such as adding handwritten characters.
+                </p>
+            </div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Noise and diffusion prior update scheduling
+                </h3>
+                <image src="img/scheduling.jpg" width=100% style="display: block; margin: auto;"></image>
+                <br>
+                <p class="text-justify">
+                    Initially, our model fits object outlines before the fields converge and without the diffusion prior, resulting in unnatural elements in the canonical image due to complex non-rigid objects. Upon introducing the diffusion prior with increased noise and update frequency, the model learns to generate natural, high-quality images, leading to convergence. Thus, the strength of noise and the update frequency will also decrease. Moreover, it's worth mentioning that update scheduling cuts training time from 4.8 hours to 20 minutes.
+                </p>
+            </div>
+        </div><br>
+
+        <br>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    User study
+                </h3>
+                <image src="img/user_study.jpg" width=100% style="display: block; margin: auto;"></image>
+                <p class="text-justify">
+                    Our method achieves the highest user preference ratios across all three aspects, compared with MeDM, CoDeF, Hashing-nvd.
+                </p>
+            </div>
+        </div>
+
+        
         <br>
 
         <div class="row">

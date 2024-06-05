@@ -45,9 +45,9 @@ def draw_text(img, text,
     return text_size, img
 
 
-# # SRx4
-# H = 480
-# W = 854
+# # SRx4 teaser
+# H = 720
+# W = 1280
 # fps = 20.0
 # task = 'SRx4'
 # scenes = ['car-shadow', 'breakdance', 'parkour', 'motocross-jump']
@@ -72,6 +72,9 @@ def draw_text(img, text,
 #             if not ret_ours or not ret_other or not ret_input:
 #                 print("Can't receive frame (stream end?). Exiting ...")
 #                 break
+#             frame_input = cv2.resize(frame_input, (W, H), interpolation=cv2.INTER_CUBIC)
+#             frame_ours = cv2.resize(frame_ours, (W, H), interpolation=cv2.INTER_CUBIC)
+#             frame_other = cv2.resize(frame_other, (W, H), interpolation=cv2.INTER_CUBIC)
         
 #             # edit here
 #             _, frame_ours = draw_text(frame_ours, "Video Super-Resolution", height=H, width=W, align='right')
@@ -91,42 +94,101 @@ def draw_text(img, text,
 
 
 
-# denoise
+# # denoise teaser
+# H = 720
+# W = 1280
+# fps = 20.0
+# task = 'noise_100'
+# scenes = ['026', '006', '009', '024']
+# other_methods = ['VRT']
+
+# for scene in scenes:
+#     for other_method in other_methods:
+#         ours_video_path = './REDS/noise_100/'+scene+'/DiffBIR_ours/video.mp4'
+#         cap_ours = cv2.VideoCapture(ours_video_path)
+#         other_video_path = './REDS/noise_100/'+scene+'/'+other_method+'/video.mp4'
+#         cap_other = cv2.VideoCapture(other_video_path)
+#         input_path = './REDS/noise_100/'+scene+'/lq/video.mp4'
+#         cap_input = cv2.VideoCapture(input_path)
+
+#         # Define the codec and create VideoWriter object
+#         fourcc = cv2.VideoWriter_fourcc(*'XVID')
+#         out = cv2.VideoWriter(task+'_'+scene+'_teaser.avi', fourcc, fps, (2*W,  H))
+#         while cap_ours.isOpened() and cap_other.isOpened() and cap_input.isOpened():
+#             ret_ours, frame_ours = cap_ours.read()
+#             ret_other, frame_other = cap_other.read()
+#             ret_input, frame_input = cap_input.read()
+#             if not ret_ours or not ret_other or not ret_input:
+#                 print("Can't receive frame (stream end?). Exiting ...")
+#                 break
+#             frame_input = cv2.resize(frame_input, (W, H), interpolation=cv2.INTER_LINEAR)
+        
+#             # edit here
+#             _, frame_ours = draw_text(frame_ours, "Video Denoising", height=H, width=W, align='right')
+#             if other_method is 'hash':
+#                 _, frame_other = draw_text(frame_other, "Hashing-nvd", height=H, width=W, align='left')
+        
+#             frame = cv2.hconcat([frame_input, frame_ours]) 
+
+        
+#             out.write(frame)
+        
+#         cap_ours.release()
+#         cap_other.release()
+#         out.release()
+#         cv2.destroyAllWindows()
+
+#     os.system('ffmpeg -y -i '+task+'_'+scene+'_teaser.avi -c:v libx264 -preset veryslow -crf 22 -pix_fmt yuv420p '+task+'_'+scene+'_teaser.mp4')
+
+
+# SRx4 teaser
 H = 720
 W = 1280
 fps = 20.0
-task = 'noise_100'
-scenes = ['026', '006', '009', '024']
-other_methods = ['VRT']
+task = 'SRx8'
+scenes = ['car-shadow', 'breakdance', 'parkour', 'motocross-jump', 'blackswan', 'drift-straight', 'dance-twirl', 'goat', 'dog', 'libby']
+other_methods = ['lq', 'DiffBIR_perframe', 'FMA-Net', 'SDx4_perframe']
+# scenes = ['car-shadow']
+# other_methods = ['lq']
 
 for scene in scenes:
     for other_method in other_methods:
-        ours_video_path = './REDS/noise_100/'+scene+'/DiffBIR_ours/video.mp4'
+        if other_method == 'SDx4_perframe':
+            ours_video_path = './DAVIS/'+task+'/'+scene+'/SDx4_ours/video.mp4'
+        else:
+            ours_video_path = './DAVIS/'+task+'/'+scene+'/DiffBIR_ours/video.mp4'
         cap_ours = cv2.VideoCapture(ours_video_path)
-        other_video_path = './REDS/noise_100/'+scene+'/'+other_method+'/video.mp4'
+        other_video_path = './DAVIS/'+task+'/'+scene+'/'+other_method+'/video.mp4'
         cap_other = cv2.VideoCapture(other_video_path)
-        input_path = './REDS/noise_100/'+scene+'/lq/video.mp4'
-        cap_input = cv2.VideoCapture(input_path)
 
         # Define the codec and create VideoWriter object
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        out = cv2.VideoWriter(task+'_'+scene+'_teaser.avi', fourcc, fps, (2*W,  H))
-        while cap_ours.isOpened() and cap_other.isOpened() and cap_input.isOpened():
+        out = cv2.VideoWriter(task+'_'+scene+'_'+other_method+'_vs_ours.avi', fourcc, fps, (2*W,  H))
+        while cap_ours.isOpened() and cap_other.isOpened():
             ret_ours, frame_ours = cap_ours.read()
             ret_other, frame_other = cap_other.read()
-            ret_input, frame_input = cap_input.read()
-            if not ret_ours or not ret_other or not ret_input:
+            if not ret_ours or not ret_other:
                 print("Can't receive frame (stream end?). Exiting ...")
                 break
-            frame_input = cv2.resize(frame_input, (W, H), interpolation=cv2.INTER_LINEAR)
+            frame_ours = cv2.resize(frame_ours, (W, H), interpolation=cv2.INTER_CUBIC)
+            frame_other = cv2.resize(frame_other, (W, H), interpolation=cv2.INTER_CUBIC)
         
             # edit here
-            _, frame_ours = draw_text(frame_ours, "Video Denoising", height=H, width=W, align='right')
-            if other_method is 'hash':
-                _, frame_other = draw_text(frame_other, "Hashing-nvd", height=H, width=W, align='left')
+            if other_method == 'SDx4_perframe':
+                _, frame_ours = draw_text(frame_ours, "Ours (SD x4 upscaler)", height=H, width=W, align='right')
+            else:
+                _, frame_ours = draw_text(frame_ours, "Ours (DiffBIR)", height=H, width=W, align='right')
+            
+            if other_method == 'lq':
+                _, frame_other = draw_text(frame_other, "Input", height=H, width=W, align='left')
+            elif other_method == 'DiffBIR_perframe':
+                _, frame_other = draw_text(frame_other, "DiffBIR", height=H, width=W, align='left')
+            elif other_method == 'FMA-Net':
+                _, frame_other = draw_text(frame_other, "FMA-Net", height=H, width=W, align='left')
+            elif other_method == 'SDx4_perframe':
+                _, frame_other = draw_text(frame_other, "SD x4 upscaler", height=H, width=W, align='left')
         
-            frame = cv2.hconcat([frame_input, frame_ours]) 
-
+            frame = cv2.hconcat([frame_other, frame_ours]) 
         
             out.write(frame)
         
@@ -135,4 +197,4 @@ for scene in scenes:
         out.release()
         cv2.destroyAllWindows()
 
-    os.system('ffmpeg -y -i '+task+'_'+scene+'_teaser.avi -c:v libx264 -preset veryslow -crf 22 -pix_fmt yuv420p '+task+'_'+scene+'_teaser.mp4')
+        os.system('ffmpeg -y -i '+task+'_'+scene+'_'+other_method+'_vs_ours.avi -c:v libx264 -preset veryslow -crf 22 -pix_fmt yuv420p '+task+'_'+scene+'_'+other_method+'_vs_ours.mp4')
