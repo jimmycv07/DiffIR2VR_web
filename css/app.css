@@ -301,6 +301,10 @@ input:checked + .slider:after
   background: #1772d0;
 }
 
+.scene-pills-denoising > .active {
+  background: #1772d0;
+}
+
 /* .mode-pills > .active {
   background: #1772d0;
 } */
