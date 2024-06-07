@@ -145,66 +145,66 @@ def draw_text(img, text,
 #     os.system('ffmpeg -y -i '+task+'_'+scene+'_teaser.avi -c:v libx264 -preset veryslow -crf 23 -pix_fmt yuv420p '+task+'_'+scene+'_teaser.mp4')
 
 
-# # SRx8 compare
-# H = 720
-# W = 1280
-# out_H = 480
-# out_W = 854
-# fps = 20.0
-# tasks = ['SRx4', 'SRx8']
-# scenes = ['blackswan', 'goat', 'kite-surf', 'car-shadow', 'parkour', 'breakdance', 'drift-chicane', 'bmx-trees']
-# other_methods = ['lq', 'DiffBIR_perframe', 'FMA-Net', 'SDx4_perframe', 'vidtome']
+# SRx8 compare
+H = 720
+W = 1280
+out_H = 480
+out_W = 854
+fps = 20.0
+tasks = ['SRx4', 'SRx8']
+scenes = ['blackswan', 'goat', 'kite-surf', 'car-shadow', 'parkour', 'breakdance', 'drift-chicane', 'bmx-trees']
+other_methods = ['lq', 'DiffBIR_perframe', 'FMA-Net', 'SDx4_perframe', 'vidtome']
 
-# for task in tasks:
-#     for scene in scenes:
-#         for other_method in other_methods:
-#             if other_method == 'SDx4_perframe':
-#                 ours_video_path = './DAVIS/'+task+'/'+scene+'/SDx4_ours/video.mp4'
-#             else:
-#                 ours_video_path = './DAVIS/'+task+'/'+scene+'/DiffBIR_ours/video.mp4'
-#             cap_ours = cv2.VideoCapture(ours_video_path)
-#             other_video_path = './DAVIS/'+task+'/'+scene+'/'+other_method+'/video.mp4'
-#             cap_other = cv2.VideoCapture(other_video_path)
+for task in tasks:
+    for scene in scenes:
+        for other_method in other_methods:
+            if other_method == 'SDx4_perframe':
+                ours_video_path = './DAVIS/'+task+'/'+scene+'/SDx4_ours/video.mp4'
+            else:
+                ours_video_path = './DAVIS/'+task+'/'+scene+'/DiffBIR_ours/video.mp4'
+            cap_ours = cv2.VideoCapture(ours_video_path)
+            other_video_path = './DAVIS/'+task+'/'+scene+'/'+other_method+'/video.mp4'
+            cap_other = cv2.VideoCapture(other_video_path)
 
-#             # Define the codec and create VideoWriter object
-#             fourcc = cv2.VideoWriter_fourcc(*'XVID')
-#             out = cv2.VideoWriter(task+'_'+scene+'_'+other_method+'_vs_ours.avi', fourcc, fps, (2*out_W,  out_H))
-#             while cap_ours.isOpened() and cap_other.isOpened():
-#                 ret_ours, frame_ours = cap_ours.read()
-#                 ret_other, frame_other = cap_other.read()
-#                 if not ret_ours or not ret_other:
-#                     print("Can't receive frame (stream end?). Exiting ...")
-#                     break
-#                 frame_ours = cv2.resize(frame_ours, (W, H), interpolation=cv2.INTER_CUBIC)
-#                 frame_other = cv2.resize(frame_other, (W, H), interpolation=cv2.INTER_CUBIC)
+            # Define the codec and create VideoWriter object
+            fourcc = cv2.VideoWriter_fourcc(*'XVID')
+            out = cv2.VideoWriter(task+'_'+scene+'_'+other_method+'_vs_ours.avi', fourcc, fps, (2*out_W,  out_H))
+            while cap_ours.isOpened() and cap_other.isOpened():
+                ret_ours, frame_ours = cap_ours.read()
+                ret_other, frame_other = cap_other.read()
+                if not ret_ours or not ret_other:
+                    print("Can't receive frame (stream end?). Exiting ...")
+                    break
+                frame_ours = cv2.resize(frame_ours, (W, H), interpolation=cv2.INTER_CUBIC)
+                frame_other = cv2.resize(frame_other, (W, H), interpolation=cv2.INTER_CUBIC)
             
-#                 # edit here
-#                 if other_method == 'SDx4_perframe':
-#                     _, frame_ours = draw_text(frame_ours, "Ours (SD x4 upscaler)", height=H, width=W, align='right')
-#                 else:
-#                     _, frame_ours = draw_text(frame_ours, "Ours (DiffBIR)", height=H, width=W, align='right')
+                # edit here
+                if other_method == 'SDx4_perframe':
+                    _, frame_ours = draw_text(frame_ours, "Ours (SD x4 upscaler)", height=H, width=W, align='right')
+                else:
+                    _, frame_ours = draw_text(frame_ours, "Ours (DiffBIR)", height=H, width=W, align='right')
                 
-#                 if other_method == 'lq':
-#                     _, frame_other = draw_text(frame_other, "Input", height=H, width=W, align='left')
-#                 elif other_method == 'DiffBIR_perframe':
-#                     _, frame_other = draw_text(frame_other, "DiffBIR", height=H, width=W, align='left')
-#                 elif other_method == 'FMA-Net':
-#                     _, frame_other = draw_text(frame_other, "FMA-Net", height=H, width=W, align='left')
-#                 elif other_method == 'SDx4_perframe':
-#                     _, frame_other = draw_text(frame_other, "SD x4 upscaler", height=H, width=W, align='left')
-#                 elif other_method == 'vidtome':
-#                     _, frame_other = draw_text(frame_other, "VidToMe", height=H, width=W, align='left')
+                if other_method == 'lq':
+                    _, frame_other = draw_text(frame_other, "Input", height=H, width=W, align='left')
+                elif other_method == 'DiffBIR_perframe':
+                    _, frame_other = draw_text(frame_other, "DiffBIR", height=H, width=W, align='left')
+                elif other_method == 'FMA-Net':
+                    _, frame_other = draw_text(frame_other, "FMA-Net", height=H, width=W, align='left')
+                elif other_method == 'SDx4_perframe':
+                    _, frame_other = draw_text(frame_other, "SD x4 upscaler", height=H, width=W, align='left')
+                elif other_method == 'vidtome':
+                    _, frame_other = draw_text(frame_other, "VidToMe", height=H, width=W, align='left')
             
-#                 frame = cv2.hconcat([frame_other, frame_ours]) 
+                frame = cv2.hconcat([frame_other, frame_ours]) 
             
-#                 out.write(cv2.resize(frame, (2*out_W,  out_H), interpolation=cv2.INTER_CUBIC))
+                out.write(cv2.resize(frame, (2*out_W,  out_H), interpolation=cv2.INTER_CUBIC))
             
-#             cap_ours.release()
-#             cap_other.release()
-#             out.release()
-#             cv2.destroyAllWindows()
+            cap_ours.release()
+            cap_other.release()
+            out.release()
+            cv2.destroyAllWindows()
 
-#             os.system('ffmpeg -y -i '+task+'_'+scene+'_'+other_method+'_vs_ours.avi -c:v libx264 -preset veryslow -crf 23 -pix_fmt yuv420p '+task+'_'+scene+'_'+other_method+'_vs_ours.mp4')
+            os.system('ffmpeg -y -i '+task+'_'+scene+'_'+other_method+'_vs_ours.avi -c:v libx264 -preset veryslow -crf 23 -pix_fmt yuv420p '+task+'_'+scene+'_'+other_method+'_vs_ours.mp4')
 
 
 # # denoising compare
@@ -265,13 +265,13 @@ def draw_text(img, text,
 
 
 # get thumbnail images
-task = 'SRx4'
-scenes = ['blackswan', 'goat', 'kite-surf', 'car-shadow', 'parkour', 'breakdance', 'drift-chicane', 'bmx-trees']
-for scene in scenes:
-    ours_video_path = './DAVIS/'+task+'/'+scene+'/DiffBIR_ours/video.mp4'
-    os.system('ffmpeg -i '+ours_video_path+' -vf "select=eq(n\,0)" -q:v 3 ../thumbnails/'+scene+'_thumbnail.jpg')
-task = 'noise_75'
-scenes = ['022', '026', '027', '024', '009', '006', '014', '000']
-for scene in scenes:
-    ours_video_path = './REDS/'+task+'/'+scene+'/DiffBIR_ours/video.mp4'
-    os.system('ffmpeg -i '+ours_video_path+' -vf "select=eq(n\,0)" -q:v 3 ../thumbnails/'+scene+'_thumbnail.jpg')
+# task = 'SRx4'
+# scenes = ['blackswan', 'goat', 'kite-surf', 'car-shadow', 'parkour', 'breakdance', 'drift-chicane', 'bmx-trees']
+# for scene in scenes:
+#     ours_video_path = './DAVIS/'+task+'/'+scene+'/DiffBIR_ours/video.mp4'
+#     os.system('ffmpeg -i '+ours_video_path+' -vf "select=eq(n\,0)" -q:v 3 ../thumbnails/'+scene+'_thumbnail.jpg')
+# task = 'noise_75'
+# scenes = ['022', '026', '027', '024', '009', '006', '014', '000']
+# for scene in scenes:
+#     ours_video_path = './REDS/'+task+'/'+scene+'/DiffBIR_ours/video.mp4'
+#     os.system('ffmpeg -i '+ours_video_path+' -vf "select=eq(n\,0)" -q:v 3 ../thumbnails/'+scene+'_thumbnail.jpg')

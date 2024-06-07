@@ -83,7 +83,7 @@
                 <ul class="list-inline">
                     <li>
                         <a href="">
-                            Changhan Yeh
+                            Chang-Han Yeh
                         </a><sup>1</sup>
                     </li>
                     <li>
@@ -146,6 +146,13 @@
             <div class="hero-body">
               <div class="container">
                 <div id="results-carousel" class="carousel results-carousel">
+                    
+                    <div class="item">
+                        <div class="video-compare-container" id="CVAI-2840RAO10_CAU32Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2840RAO10_CAU32" loop playsinline autoPlay muted src="videos/noise_75_003_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2840RAO10_CAU32Merge" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
 
                     <div class="item item-CVAI-2828RAO2_CRA32">
                         <div class="video-compare-container" id="CVAI-2828RAO2_CRA32Div" style="width: 100%;">
@@ -153,11 +160,11 @@
                             <canvas height=0 class="videoMerge" id="CVAI-2828RAO2_CRA32Merge" style="width: 100%;"></canvas>
                         </div>
                     </div>
-                    
+
                     <div class="item">
-                        <div class="video-compare-container" id="CVAI-2840RAO10_CAU32Div" style="width: 100%;">
-                            <video class="video" id="CVAI-2840RAO10_CAU32" loop playsinline autoPlay muted src="videos/noise_75_003_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
-                            <canvas height=0 class="videoMerge" id="CVAI-2840RAO10_CAU32Merge" style="width: 100%;"></canvas>
+                        <div class="video-compare-container" id="CVAI-2847LAO1_CRA32Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2847LAO1_CRA32" loop playsinline autoPlay muted src="videos/noise_75_028_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2847LAO1_CRA32Merge" style="width: 100%;"></canvas>
                         </div>
                     </div>
 
@@ -169,9 +176,9 @@
                     </div>
 
                     <div class="item">
-                        <div class="video-compare-container" id="CVAI-2847LAO1_CRA32Div" style="width: 100%;">
-                            <video class="video" id="CVAI-2847LAO1_CRA32" loop playsinline autoPlay muted src="videos/noise_75_028_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
-                            <canvas height=0 class="videoMerge" id="CVAI-2847LAO1_CRA32Merge" style="width: 100%;"></canvas>
+                        <div class="video-compare-container" id="CVAI-2855LAO26_CRA31Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2855LAO26_CRA31" loop playsinline autoPlay muted src="videos/noise_75_002_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2855LAO26_CRA31Merge" style="width: 100%;"></canvas>
                         </div>
                     </div>
 
@@ -183,9 +190,9 @@
                     </div>
 
                     <div class="item">
-                        <div class="video-compare-container" id="CVAI-2855LAO26_CRA31Div" style="width: 100%;">
-                            <video class="video" id="CVAI-2855LAO26_CRA31" loop playsinline autoPlay muted src="videos/noise_75_002_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
-                            <canvas height=0 class="videoMerge" id="CVAI-2855LAO26_CRA31Merge" style="width: 100%;"></canvas>
+                        <div class="video-compare-container" id="CVAI-2858LAO51_CRA9Div" style="width: 100%;">
+                            <video class="video" id="CVAI-2858LAO51_CRA9" loop playsinline autoPlay muted src="videos/noise_75_004_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                            <canvas height=0 class="videoMerge" id="CVAI-2858LAO51_CRA9Merge" style="width: 100%;"></canvas>
                         </div>
                     </div>
 
@@ -196,13 +203,6 @@
                         </div>
                     </div>
 
-                    <div class="item">
-                        <div class="video-compare-container" id="CVAI-2858LAO51_CRA9Div" style="width: 100%;">
-                            <video class="video" id="CVAI-2858LAO51_CRA9" loop playsinline autoPlay muted src="videos/noise_75_004_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
-                            <canvas height=0 class="videoMerge" id="CVAI-2858LAO51_CRA9Merge" style="width: 100%;"></canvas>
-                        </div>
-                    </div>
-
                 </div>
               </div>
             </div>
@@ -210,7 +210,7 @@
 
         <div class="row">
             <div class="col-md-12 text-center">
-                <b>DiffIR2VR-Zero</b> is a zero-shot video restoration method using pre-trained diffusion models, effectively handling up to 8x super-resolution and denoising without retraining.
+                <b>DiffIR2VR-Zero</b> is a zero-shot video restoration method using pre-trained diffusion models, effectively handling denoising and up to 8x super-resolution without retraining.
 			</div>
         </div><br>
 
@@ -264,6 +264,160 @@
 
 
         <br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Hierarchical latent warping
+                </h3>
+                <div class="text-center">
+                    <video id="v0" width="75%" autoplay loop muted>
+                    <source src="img/warping.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <p class="text-justify">
+                    Without requiring any training, Hierarchical latent warping provides global and local shape guidance and can achieve coherence across frames by enforcing temporal stability in latent space.  
+                </p>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Hybrid spatial-aware token merging
+                </h3>
+                <div class="text-center">
+                    <video id="v0" width="75%" autoplay loop muted>
+                    <source src="img/token.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <p class="text-justify">
+                    Hybrid spatial-aware token merging before the self-attention layer improves temporal consistency by matching similar tokens using optical flow in the down blocks and cosine similarity in the up blocks of the UNet.
+                </p>
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Qualitative comparisons on video denoising
+                </h3><br>
+
+                <div class="text-center ">
+                    <ul class="nav nav-pills center-pills">
+                        <li class="method-pill-denoising active" data-value="lq"
+                            onclick="selectCompVideoDenoising(this, activeScenePillDenoising)"><a>Input</a></li>
+                        <li class="method-pill-denoising" data-value="VRT"
+                            onclick="selectCompVideoDenoising(this, activeScenePillDenoising)"><a>VRT</a></li>
+                        <li class="method-pill-denoising" data-value="Shift-Net"
+                            onclick="selectCompVideoDenoising(this, activeScenePillDenoising)"><a>Shift-Net</a></li>
+                        <li class="method-pill-denoising" data-value="vidtome"
+                            onclick="selectCompVideoDenoising(this, activeScenePillDenoising)"><a>VidToMe</a></li>
+                        <li class="method-pill-denoising" data-value="DiffBIR_perframe_better"
+                            onclick="selectCompVideoDenoising(this, activeScenePillDenoising)"><a>DiffBIR</a></li>
+                    </ul>
+                </div>
+
+                <script>
+                    activeMethodPillDenoising = document.querySelector('.method-pill-denoising.active-pill');
+                    activeScenePillDenoising = document.querySelector('.scene-pill-denoising.active-pill');
+                    activeModePillDenoising = document.querySelector('.mode-pill-denoising.active-pill');
+                </script>
+                
+                <div class="text-center">
+                    <div class="video-compare-container" id="compare_denoisingDiv" style="width: 100%;">
+                        <video class="video" id="compare_denoising" loop playsinline autoPlay muted src="videos/noise_75_022_lq_vs_ours.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                        <canvas height=0 class="videoMerge" id="compare_denoisingMerge" style="width: 100%;"></canvas>
+                    </div>
+                    <div class="text-center" style="color: black;" id="mode-pills-denoising">
+                        Noise level:
+                        <div class="btn-group btn-group-sm">
+                            <span class="btn btn-primary mode-pill-denoising active" data-value="noise_75"
+                                onclick="selectCompVideoDenoising(activeMethodPillDenoising, activeScenePillDenoising, null, this)">
+                                75
+                            </span>
+                            <span class="btn btn-primary mode-pill-denoising" data-value="noise_100"
+                                onclick="selectCompVideoDenoising(activeMethodPillDenoising, activeScenePillDenoising, null, this)">
+                                100
+                            </span>
+                            <span class="btn btn-primary mode-pill-denoising" data-value="noise_random_50100"
+                                onclick="selectCompVideoDenoising(activeMethodPillDenoising, activeScenePillDenoising, null, this)">
+                                Random
+                            </span>
+                        </div>
+                    </div>
+
+
+                    <br>
+                    <p class="text-justify" style="text-align: center;">
+                        Baseline method (left) vs DiffIR2VR-Zero (right). Try selecting different methods and scenes!
+                    </p>
+                    <!-- <script>
+                        video0 = document.getElementById("compVideo0");
+                        video1 = document.getElementById("compVideo1");
+                        video0.addEventListener('loadedmetadata', function() {
+                            if (activeVidID == 0 && select){
+                                video0.play();
+                                // print video size
+                                console.log(video0.videoWidth, video0.videoHeight);
+                                video0.hidden = false;
+                                video1.hidden = true;
+                            }
+                        });
+                        video1.addEventListener('loadedmetadata', function() {
+                            if (activeVidID == 1 && select){
+                                video1.play();
+                                // print video size
+                                console.log(video1.videoWidth, video1.videoHeight);
+                                video0.hidden = true;
+                                video1.hidden = false;
+                            }
+                        });
+                    </script> -->
+                    
+                    <div class="pill-row scene-pills-denoising" id="scene-pills-denoising">
+                        <span class="pill scene-pill-denoising active" data-value="022" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/022_thumbnail.jpg" alt="DTU/scan31" width="64">
+                        </span>
+                        <span class="pill scene-pill-denoising" data-value="026" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/026_thumbnail.jpg" alt="DTU/scan45" width="64">
+                        </span>
+                        <span class="pill scene-pill-denoising" data-value="027" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/027_thumbnail.jpg" alt="LLFF/fern" width="64">
+                        </span>
+                        <span class="pill scene-pill-denoising" data-value="024" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/024_thumbnail.jpg" alt="LLFF/horns" width="64">
+                        </span>
+                        <span class="pill scene-pill-denoising" data-value="009" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/009_thumbnail.jpg" alt="Re10K/sofa" width="64">
+                        </span>
+                        <span class="pill scene-pill-denoising" data-value="006" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
+                            <img class="thumbnail-img" src="thumbnails/006_thumbnail.jpg" alt="Re10K/living room" width="64">
+                        </span>
+                        <span class="pill scene-pill-denoising" data-value="014" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 6)">
+                            <img class="thumbnail-img" src="thumbnails/014_thumbnail.jpg" alt="CO3D/bench" width="64">
+                        </span>
+                        <span class="pill scene-pill-denoising" data-value="000" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 6)">
+                            <img class="thumbnail-img" src="thumbnails/000_thumbnail.jpg" alt="CO3D/plant" width="64">
+                        </span>
+                    </div>
+
+                    <script>
+                        activeMethodPillDenoising = document.querySelector('.method-pill-denoising.active-pill');
+                        activeScenePillDenoising = document.querySelector('.scene-pill-denoising.active-pill');
+                        activeModePillDenoising = document.querySelector('.mode-pill-denoising.active-pill');
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
@@ -385,340 +539,23 @@
 
 
 
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Qualitative comparisons on video denoising
-                </h3><br>
-
-                <div class="text-center ">
-                    <ul class="nav nav-pills center-pills">
-                        <li class="method-pill-denoising active" data-value="lq"
-                            onclick="selectCompVideoDenoising(this, activeScenePillDenoising)"><a>Input</a></li>
-                        <li class="method-pill-denoising" data-value="VRT"
-                            onclick="selectCompVideoDenoising(this, activeScenePillDenoising)"><a>VRT</a></li>
-                        <li class="method-pill-denoising" data-value="Shift-Net"
-                            onclick="selectCompVideoDenoising(this, activeScenePillDenoising)"><a>Shift-Net</a></li>
-                        <li class="method-pill-denoising" data-value="vidtome"
-                            onclick="selectCompVideoDenoising(this, activeScenePillDenoising)"><a>VidToMe</a></li>
-                        <li class="method-pill-denoising" data-value="DiffBIR_perframe_better"
-                            onclick="selectCompVideoDenoising(this, activeScenePillDenoising)"><a>DiffBIR</a></li>
-                    </ul>
-                </div>
-
-                <script>
-                    activeMethodPillDenoising = document.querySelector('.method-pill-denoising.active-pill');
-                    activeScenePillDenoising = document.querySelector('.scene-pill-denoising.active-pill');
-                    activeModePillDenoising = document.querySelector('.mode-pill-denoising.active-pill');
-                </script>
-                
-                <div class="text-center">
-                    <div class="video-compare-container" id="compare_denoisingDiv" style="width: 100%;">
-                        <video class="video" id="compare_denoising" loop playsinline autoPlay muted src="videos/noise_75_022_lq_vs_ours.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
-                        <canvas height=0 class="videoMerge" id="compare_denoisingMerge" style="width: 100%;"></canvas>
-                    </div>
-                    <div class="text-center" style="color: black;" id="mode-pills-denoising">
-                        Noise level:
-                        <div class="btn-group btn-group-sm">
-                            <span class="btn btn-primary mode-pill-denoising active" data-value="noise_75"
-                                onclick="selectCompVideoDenoising(activeMethodPillDenoising, activeScenePillDenoising, null, this)">
-                                75
-                            </span>
-                            <span class="btn btn-primary mode-pill-denoising" data-value="noise_100"
-                                onclick="selectCompVideoDenoising(activeMethodPillDenoising, activeScenePillDenoising, null, this)">
-                                100
-                            </span>
-                            <span class="btn btn-primary mode-pill-denoising" data-value="noise_random_50100"
-                                onclick="selectCompVideoDenoising(activeMethodPillDenoising, activeScenePillDenoising, null, this)">
-                                Random
-                            </span>
-                        </div>
-                    </div>
-
-
-                    <br>
-                    <p class="text-justify" style="text-align: center;">
-                        Baseline method (left) vs DiffIR2VR-Zero (right). Try selecting different methods and scenes!
-                    </p>
-                    <!-- <script>
-                        video0 = document.getElementById("compVideo0");
-                        video1 = document.getElementById("compVideo1");
-                        video0.addEventListener('loadedmetadata', function() {
-                            if (activeVidID == 0 && select){
-                                video0.play();
-                                // print video size
-                                console.log(video0.videoWidth, video0.videoHeight);
-                                video0.hidden = false;
-                                video1.hidden = true;
-                            }
-                        });
-                        video1.addEventListener('loadedmetadata', function() {
-                            if (activeVidID == 1 && select){
-                                video1.play();
-                                // print video size
-                                console.log(video1.videoWidth, video1.videoHeight);
-                                video0.hidden = true;
-                                video1.hidden = false;
-                            }
-                        });
-                    </script> -->
-                    
-                    <div class="pill-row scene-pills-denoising" id="scene-pills-denoising">
-                        <span class="pill scene-pill-denoising active" data-value="022" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
-                            <img class="thumbnail-img" src="thumbnails/022_thumbnail.jpg" alt="DTU/scan31" width="64">
-                        </span>
-                        <span class="pill scene-pill-denoising" data-value="026" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
-                            <img class="thumbnail-img" src="thumbnails/026_thumbnail.jpg" alt="DTU/scan45" width="64">
-                        </span>
-                        <span class="pill scene-pill-denoising" data-value="027" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
-                            <img class="thumbnail-img" src="thumbnails/027_thumbnail.jpg" alt="LLFF/fern" width="64">
-                        </span>
-                        <span class="pill scene-pill-denoising" data-value="024" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
-                            <img class="thumbnail-img" src="thumbnails/024_thumbnail.jpg" alt="LLFF/horns" width="64">
-                        </span>
-                        <span class="pill scene-pill-denoising" data-value="009" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
-                            <img class="thumbnail-img" src="thumbnails/009_thumbnail.jpg" alt="Re10K/sofa" width="64">
-                        </span>
-                        <span class="pill scene-pill-denoising" data-value="006" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
-                            <img class="thumbnail-img" src="thumbnails/006_thumbnail.jpg" alt="Re10K/living room" width="64">
-                        </span>
-                        <span class="pill scene-pill-denoising" data-value="014" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 6)">
-                            <img class="thumbnail-img" src="thumbnails/014_thumbnail.jpg" alt="CO3D/bench" width="64">
-                        </span>
-                        <span class="pill scene-pill-denoising" data-value="000" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 6)">
-                            <img class="thumbnail-img" src="thumbnails/000_thumbnail.jpg" alt="CO3D/plant" width="64">
-                        </span>
-                    </div>
-
-                    <script>
-                        activeMethodPillDenoising = document.querySelector('.method-pill-denoising.active-pill');
-                        activeScenePillDenoising = document.querySelector('.scene-pill-denoising.active-pill');
-                        activeModePillDenoising = document.querySelector('.mode-pill-denoising.active-pill');
-                    </script>
-                </div>
-            </div>
-        </div>
-        <br>
-
-
-
-
-
-
         
         
         <br>
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h3>
-				  ReconFusion improves both few-view and many-view reconstruction
-                </h3><br>
-                <!-- <p class="text-justify" style="color:red">
-                    Hover over the plot to show rendered video under different number of views.
-                </p> -->
-                
-                <!-- top down layout -->
-                <canvas id="sparsityChart" style="max-height: 300px; max-width: 500px; margin: auto;"></canvas>
-                <script src="js/sparsity_chart.js"></script>
-                <br>
-                <p class="text-center">
-                    Our diffusion prior improves performance over baseline Zip-NeRF in both the few-view and many-view sampling regimes.
-                </p>
     
                 <div class="text-center">
                     <div class="video-compare-container" id="materialsDiv">
                         <video class="video" id="sparsity" loop playsinline autoPlay muted src="videos/sparsity/stacked_vid.mp4" onplay="resizeAndPlay(this)"></video>
                         <canvas height=0 class="videoMerge" id="sparsityMerge"></canvas>
                     </div>
-                    <!-- <canvas height=0 class="videoWrapper" id="sparsityVideoWrapper"></canvas> -->
-			<em>Move the slider to adjust the number of views. The left column shows the nearest input view.</em>
-                    <div class="slider-container" style="padding-left: 12%; padding-right: 11%;">
-                        <input type="range" class="styled-slider" id="sparsitySlider" min="0" max="6" step="1" value="0" list="slider-labels">
-                        <datalist id="slider-labels">
-                            <option value="0">3</option>
-                            <option value="1">6</option>
-                            <option value="2">9</option>
-                            <option value="3">18</option>
-                            <option value="4">27</option>
-                            <option value="5">54</option>
-                            <option value="6">81</option>
-                        </datalist>
-                    </div>
-                    <table style="text-align: left; padding-left: 0px; padding-right: 10%; width: 100%;">
-                        <tr>
-                            <th width="10%"></th>
-                            <td width="10%">3</td>
-                            <td width="10%">6</td>
-                            <td width="10%">9</td>
-                            <td width="10%">18</td>
-                            <td width="10%">27</td>
-                            <td width="10%">54</td>
-                            <td width="10%">81</td>
-                        </tr>
-                    </table><br>
-                    <!-- <div class="text-center">
-                        Rendered video under <span id="sparsityValue" style="color: red;">3</span> views
-                    </div> -->
+			
                 </div>
-                
-                <!-- left right layout -->
-                <!-- <table style="width: 100%; border-collapse: collapse;">
-                    <tr>
-                      <td style="text-align: center;" >
-                        <canvas id="sparsityChart" style="max-height: 250px; max-width: 200px; margin: auto;"></canvas>
-                        <script src="js/sparsity_chart.js"></script>
-                      </td>
-                      <td style="text-align: center;">
-                        <video class="video" width=100% id="sparsityVideo" loop playsinline autoplay muted onplay="playOnCanvas(this, 180)">
-                            <source src="videos/sparsity/kitchenlego_3.mp4" type="video/mp4" />
-                        </video>
-                        <canvas height=0 class="videoWrapper" id="sparsityVideoWrapper"></canvas>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="text-align: center;"></td>
-                      <td style="text-align: center;">Rendered video under <span id="sparsityValue" style="color: red;">3</span> views</td>
-                    </tr>
-                </table> -->
-<br>
-            </div>
-        </div><br><br>
 
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 text-center">
-                <h3>
-                    ReconFusion distills a consistent 3D model from inconsistent samples
-                </h3><br>
-                
-                <table style="margin-left: auto; margin-right: auto; width: 90%;">
-                    <tr>
-                      <th style="width: 4%;"></th>
-                      <th style="text-align: center;width: 32%;">LLFF (3 views)</th>
-                      <th style="text-align: center;width: 32%;">CO3D (6 views)</th>
-					  <th style="text-align: center;width: 32%;">mip-NeRF 360 (9 views)</th>
-                    </tr>
-                    <tr>
-                      <td style="text-align: center; writing-mode: vertical-lr; transform: rotate(180deg); width:4%">3D Reconstruction</td>
-                      <td rowspan="2" colspan="3" style="width: 96%">
-                        <video class="video" width=100% loop playsinline autoplay muted controls>
-                            <source src="videos/ablation/recon_vs_samples.mp4" />
-                        </video>
-                      </td>
-                      <!-- <td style="text-align: center;">
-                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
-                            <source src="videos/ablation/z123_nerf.mp4" />
-                        </video>
-                      </td>
-                      <td style="text-align: center;">
-                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
-                            <source src="videos/ablation/scratch_nerf.mp4" />
-                        </video>
-                      </td>
-                      <td style="text-align: center;">
-                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
-                            <source src="videos/ablation/ours_nerf.mp4" />
-                        </video>
-                      </td> -->
-                    </tr>
-                    <tr>
-					  <td style="text-align: center; writing-mode: vertical-lr; transform: rotate(180deg); width:4%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Samples&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td></td>
-                      <!-- <td style="text-align: center;">
-                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
-                            <source src="videos/ablation/z123_samples.mp4" />
-                        </video>
-                      </td>
-                      <td style="text-align: center;">
-                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
-                            <source src="videos/ablation/scratch_samples.mp4" />
-                        </video>
-                      </td>
-                      <td style="text-align: center;">
-                        <video class="video" width=100% loop playsinline autoplay muted style="max-height: 150px;">
-                            <source src="videos/ablation/ours_samples.mp4" />
-                        </video>
-                      </td> -->
-                    </tr>
-                </table>
-                <br>
-<!-- 
-                <p class="text-justify" style="width: 85%; margin: auto;"> -->
-                <p class="text-justify" style="width:85%; margin:auto">
-                    ReconFusion recovers consistent 3D reconstructions (top) from a diffusion model that produces image samples independently for each viewpoint (bottom). These samples are not multiview consistent, but can produce high-quality 3D reconstructions when used as a prior in optimization.
-                </p>
-            </div>
-        </div>
-        <br>
-        <br>
-
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Video
-                </h3>
-                <div class="text-center">
-                    <div style="position:relative;padding-top:56.25%;">
-                        <iframe src="https://youtube.com/embed/xrrhynRzC8k" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
-                    </div>
-                </div>
-            </div>
         </div>
 <br>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Multisampling
-                </h3>
-				<table style="width: 100%; border-collapse: collapse;">
-				  <tr>
-				    <td style="text-align: center;">
-		                <video id="v0" width="100%" autoplay loop muted>
-		                  <source src="img/hexify_train.mp4" type="video/mp4" />
-		                </video>
-					</td>
-				    <td style="text-align: center;">
-		                <video id="v0" width="100%" autoplay loop muted>
-		                  <source src="img/hexify_test.mp4" type="video/mp4" />
-		                </video>
-					</td>
-				  </tr>
-				  <tr>
-				    <td style="text-align: center;">When Training</td>
-				    <td style="text-align: center;">When Rendering</td>
-				  </tr>
-				</table>
-                <p class="text-justify">
-                    We use multisampling to approximate the average NGP feature over a conical frustum, by constructing a 6-sample pattern that exactly matches the frustum's first and second moments. When training, we randomly rotate and flip (along the ray axis) each pattern, and when rendering we deterministically flip and rotate each adjacent pattern by 30 degrees.
-                </p>
-            </div>
-        </div>
-<br>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    XY aliasing
-                </h3>
-                <video class="video" width=100% id="xyalias" loop playsinline autoplay muted src="img/xy_alias_swipe_crf27.mp4" onplay="resizeAndPlay(this)"></video>
-                <canvas height=0 class="videoMerge" id="xyaliasMerge"></canvas>
-                <p class="text-justify">
-                    A naive baseline (left) combining mip-NeRF 360 and Instant NGP results in aliasing as the camera moves laterally. Our full method (right) produces prefiltered renderings that do not flicker or shimmer.
-                </p>
-            </div>
-        </div>
-           
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Z aliasing
-                </h3>
-                <video id="v0" width="100%" autoplay loop muted>
-                  <source src="img/z_alias_pdf_labeled.m4v" type="video/mp4" />
-                </video>
-                <p class="text-justify">
-                    The proposal network used for resampling points along rays in mip-NeRF 360 results in an artifact we refer to as <em>z-aliasing</em>, where foreground content alternately appears and disappears as the camera moves toward or away from scene content. Z-aliasing occurs when the initial set of samples from the proposal network is not dense enough and misses thin structures, such as the chair above. Missed content can not be recovered by later rounds of sampling, since no future samples will be placed at that location along the ray. Our improvements to proposal network supervision result in a prefiltered proposal output that preserves the foreground object for all frames in this sequence. The plots above depict samples along a ray for three rounds of resampling (blue, orange, and green lines), with the y axis showing rendering weight (how much each interval contributes to the final rendered color), as a normalized probability density.
-                </p>
-            </div>
-        </div>
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -727,11 +564,9 @@
                 </h3>
                 <div class="form-group col-md-10 col-md-offset-1">
                     <textarea id="bibtex" class="form-control" readonly>
-@article{chen2024narcan,
-    title={NaRCan: Natural Refined Canonical Image with 
-           Integration of Diffusion Prior for Video Editing},
-    author={Ting-Hsuan Chen and Jiewen Chan and Shih Han Yen and 
-            Hau-Shiang Shiu and Changhan Yeh and Yu-Lun Liu},
+@article{yeh2024diffir2vr,
+    title={DiffIR2VR-Zero: Zero-Shot Video Restoration with Diffusion-based Image Restoration Models},
+    author={Chang-Han Yeh and Chin-Yang Lin and Zhixiang Wang and Chi-Wei Hsiao and Ting-Hsuan Chen and Yu-Lun Liu},
     journal={arXiv},
     year={2024}
 }</textarea>
