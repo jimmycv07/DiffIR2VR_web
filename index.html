@@ -118,18 +118,12 @@
 
 
         <div class="row">
-                <div class="col-md-6 col-md-offset-3 text-center">
+                <div class="col-md-4 col-md-offset-4 text-center">
                     <ul class="nav nav-pills nav-justified">
                         <li>
                             <a href="https://arxiv.org/abs/2304.06706">
-                            <image src="img/narcan_paper_image.jpg" height="60px">
+                            <image src="img/diff_paper_image.jpg" height="60px">
                                 <h4><strong>Paper</strong></h4>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.youtube.com/watch?v=xrrhynRzC8k">
-                            <image src="img/youtube_icon.png" height="60px">
-                                <h4><strong>Video</strong></h4>
                             </a>
                         </li>
                         <li>
@@ -299,6 +293,22 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Token correspondences
+                </h3>
+                <div class="text-center">
+                    <video id="v0" width="100%" autoplay loop muted controls>
+                    <source src="img/corres_no_dis_4.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <p class="text-justify">
+                    Correspondences found by <font color="#ff0000">cosine similarity</font> and by <font color="#00ff00">optical flow</font>. At the beginning of the denoising process, the latents in the UNet downblocks are too noisy for cosine similarity to be effective, while optical flow estimated from LQ frames remains reliable. Flow and cosine similarity often identify different correspondences, so a hybrid approach is more effective.
+                </p>
+            </div>
+        </div>
+
 
 
 
@@ -357,7 +367,7 @@
                     <p class="text-justify" style="text-align: center;">
                         Baseline method (left) vs DiffIR2VR-Zero (right). Try selecting different methods and scenes!
                     </p>
-                    <!-- <script>
+                    <script>
                         video0 = document.getElementById("compVideo0");
                         video1 = document.getElementById("compVideo1");
                         video0.addEventListener('loadedmetadata', function() {
@@ -378,7 +388,7 @@
                                 video1.hidden = false;
                             }
                         });
-                    </script> -->
+                    </script>
                     
                     <div class="pill-row scene-pills-denoising" id="scene-pills-denoising">
                         <span class="pill scene-pill-denoising active" data-value="022" onclick="selectCompVideoDenoising(activeMethodPillDenoising, this, 3)">
@@ -556,6 +566,57 @@
 
         </div>
 <br>
+
+
+<section class="hero is-light is-small">
+    <h3>
+        Additional application: consistent video depth
+    </h3><br>
+    <div class="hero-body">
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+            
+            <div class="item">
+                <div class="video-compare-container" id="depth-dogs-jumpDiv" style="width: 100%;">
+                    <video class="video" id="depth-dogs-jump" loop playsinline autoPlay muted src="videos/marigold_results/depth_dogs-jump_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                    <canvas height=0 class="videoMerge" id="depth-dogs-jumpMerge" style="width: 100%;"></canvas>
+                </div>
+            </div>
+            
+            <div class="item">
+                <div class="video-compare-container" id="depth-droneDiv" style="width: 100%;">
+                    <video class="video" id="depth-drone" loop playsinline autoPlay muted src="videos/marigold_results/depth_drone_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                    <canvas height=0 class="videoMerge" id="depth-droneMerge" style="width: 100%;"></canvas>
+                </div>
+            </div>
+            
+            <div class="item">
+                <div class="video-compare-container" id="depth-goatDiv" style="width: 100%;">
+                    <video class="video" id="depth-goat" loop playsinline autoPlay muted src="videos/marigold_results/depth_goat_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                    <canvas height=0 class="videoMerge" id="depth-goatMerge" style="width: 100%;"></canvas>
+                </div>
+            </div>
+            
+            <div class="item">
+                <div class="video-compare-container" id="depth-gold-fishDiv" style="width: 100%;">
+                    <video class="video" id="depth-gold-fish" loop playsinline autoPlay muted src="videos/marigold_results/depth_gold-fish_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                    <canvas height=0 class="videoMerge" id="depth-gold-fishMerge" style="width: 100%;"></canvas>
+                </div>
+            </div>
+            
+            <div class="item">
+                <div class="video-compare-container" id="depth-trainDiv" style="width: 100%;">
+                    <video class="video" id="depth-train" loop playsinline autoPlay muted src="videos/marigold_results/depth_train_teaser.mp4" onplay="resizeAndPlay(this)" width="100%"></video>
+                    <canvas height=0 class="videoMerge" id="depth-trainMerge" style="width: 100%;"></canvas>
+                </div>
+            </div>
+
+
+        </div>
+      </div>
+    </div>
+</section>
+
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
